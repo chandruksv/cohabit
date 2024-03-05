@@ -103,6 +103,7 @@ function App() {
     };
 
   const createAndDownloadPdf = () => {
+    console.log("hellooo!");
     if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0) {
         setLoading(true);
         setResponse("");
