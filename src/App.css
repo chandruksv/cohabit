@@ -1,18 +1,19 @@
 .App{
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Monoton';
 }
 .content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 90%;
-  height: 100%;
-  position: relative;
+	display: flex;
+	flex-direction: column;
+  justify-content: center;
+	align-items: center;
+	width: 90%;
+	height: 100%;
+	position: relative;
 }
 .logo{
   width: 60%;
@@ -126,18 +127,49 @@
 }
 
 /* Ordermade part */
-.ordermade{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  
-  position: relative;
-  width: 80%;
-  height: 90vh;
+.backgroundCircle{
+  position: absolute;
+  background-color: skyblue;
+  height: 25vh;
+  width: 100vw;
 }
-.ordermadeInformation{
-  position: relative;
+.blueBackgroundTop {
+	top: 0;
+	border-bottom-right-radius: 140%;
 }
+.blueBackgroundBottom {
+	bottom: 0;
+	border-top-left-radius: 140%;
+}
+.ordermade {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.portraitBox {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.portrait{
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px gray;
+}
+.ordermadeInformation {
+	position: relative;
+	border-radius: 25px;
+	background-color: white;
+	padding: 15px;
+	box-shadow: 0px 0px 10px black;
+  max-height: 90%;
+  overflow: scroll;
+}
+
 .newOrderBtn{
   border: none;
 	padding: 10px;
@@ -150,6 +182,29 @@
 	font-size: 15px;
   transition: all .2s ease-in-out;
   cursor: pointer;
+}
+.link{
+  color: black;
+  transition: all .2s ease;
+}
+.link:hover{
+  color: skyblue;
+}
+.thanksBox{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+}
+.thanksText {
+	line-height: 5.5px;
+	font-weight: bold;
+}
+.ordermadeLogo{
+	width: 30%;
+  margin-bottom: 10px;
+	max-width: 300px;
 }
 
 /* Loading Animation */

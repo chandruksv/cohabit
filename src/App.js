@@ -6,7 +6,7 @@ import {saveAs} from 'file-saver';
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
-    const [orderMade, setOrderMade] = useState(false);
+    const [orderMade, setOrderMade] = useState(true);
 
     const [state, setState] = useState({
         name:"",
@@ -103,7 +103,6 @@ function App() {
     };
 
   const createAndDownloadPdf = () => {
-    console.log("hellooo!");
     if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0) {
         setLoading(true);
         setResponse("");
@@ -112,7 +111,7 @@ function App() {
             .then(()=> axios.get('get-pdf', {responseType:"blob"}))
             .then((res)=>{
                 const pdfBlob = new Blob([res.data], {type: "application/pdf"});
-                saveAs(pdfBlob, "newPdf.pdf");
+                saveAs(pdfBlob, "order_conformation_Cohabit.pdf");
             })
             .catch((error) => {
                 // setResponse(error.response.data);
@@ -533,20 +532,29 @@ function App() {
             </>
         :
             <>
+                <div className="backgroundCircle blueBackgroundTop" />
+                <div className="backgroundCircle blueBackgroundBottom" />
                 <div className="ordermade">
-                    <img className='logo' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
-                    
                     <div className='ordermadeInformation'>
+                        <img className='ordermadeLogo' loading='lazy' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
+                        
                         <h1>Thanks {state.name}!</h1>
                         <h3>Your order has been recieved by Cohabit Team!</h3>
 
-                        <p>You will soon recieve an email to complete your order. Please follow the email for next step!</p>
+                        <p>You will soon recieve an email to confirm your order. 
+                            Please follow the email for next step! 
+                            If you have further questions you can contact us through (email and phone) or you can also book a call with us here.</p>
+                        <p>Not recieved an email, please send a reminder to our <a className='link' href="mailto:hello@cohabit.se">Customer Service</a> or Call us at <a className='link' href="tel:+46723171061">0-721 111 161</a>.</p>
                         <button className='newOrderBtn' onClick={()=> {setOrderMade(""); setState(initialState)}}>New Order</button>
-                    </div>
-
-                    <div className='thanksBox'>
-                        <p>Have a good day!</p>
-                        <p>Cohabit Team!</p>
+                        <div className='portraitBox'>
+                            <img className='portrait' loading='lazy' src={require("./assets/portrait.jpg")} alt='cohabitTeamPortrait'/>
+                        </div>
+                        <div className='thanksBox'>
+                            <div className="thanksText">
+                                <p>Kind regards,</p>
+                                <p>Cohabit Team!</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </>
