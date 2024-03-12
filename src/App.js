@@ -6,7 +6,7 @@ import {saveAs} from 'file-saver';
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
-    const [orderMade, setOrderMade] = useState(true);
+    const [orderMade, setOrderMade] = useState(false);
 
     const [currentSection, setCurrentSection] = useState("customerInfo");
 
@@ -105,7 +105,7 @@ function App() {
     };
 
   const createAndDownloadPdf = () => {
-    if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0) {
+    if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0 && state.deliveryDate !== "" && state.timePreference !== "") {
         setLoading(true);
         setResponse("");
 
@@ -126,6 +126,7 @@ function App() {
 
                 // setState(initialState);
                 setOrderMade(true);
+                setCurrentSection("customerInfo");
                 setLoading(false);
             });
     }else{
@@ -146,16 +147,45 @@ function App() {
         })
   }
 
+  const checkInputs = (field) => {
+
+    switch(field){
+        case 'customerInfo':
+            if (state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.phonenumber !== 0 ) {
+                setCurrentSection("products");
+            }else{
+                setResponse("Please fill all the required fields!");
+                setTimeout(() => {
+                    setResponse("");
+                }, 3000);
+            }
+            break;
+        case 'products':
+            if (state.total > 0) {
+                setCurrentSection("furtherInfo");
+            }else{
+                setResponse("Please pick the furniture you want!");
+                setTimeout(() => {
+                    setResponse("");
+                }, 3000);
+            }
+            break;
+        default:
+            console.log("hiii");
+            break;
+    }
+  }
+
   return (
     <div className="App">
       <div className="content">
         <button style={{display:"none"}} onClick={()=> createAndDownloadCV()}>Get CV</button>
-            {response && <div className='responseBox'>{response}</div>}
             
             <div className="backgroundCircle blueBackgroundTop" />
             <div className="backgroundCircle blueBackgroundBottom" />
             <div className="ordermade">
                 <div className='ordermadeInformation'>
+                    
                     <img className='logo' loading='lazy' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
                     
                     {!orderMade ?
@@ -171,10 +201,10 @@ function App() {
                                         <label htmlFor="name">Name *</label>
                                         <input id="name" type="text" name='name' onChange={handleChange} value={state.name}/>
                                     </div>
-                                    <div className="input-wrapper">
+                                    {/* <div className="input-wrapper">
                                         <label htmlFor="customerId">Customer ID</label>
                                         <input id="customerId" type="number" name='customerId' onChange={handleChange} value={state.customerId}/>
-                                    </div>
+                                    </div> */}
                                     <div className="input-wrapper">
                                         <label htmlFor="phonenumber">Phone Number *</label>
                                         <input id="phonenumber" type="number" name="phonenumber" onChange={handleChange} value={state.phonenumber}/>
@@ -241,14 +271,14 @@ function App() {
                                 </div>
                                 <div className="navigateBtns">
                                     <button className="btn backBtn" style={{opacity:0, pointerEvents:"none"}} disabled onClick={()=> setCurrentSection("customerInfo")}>Back</button>
-                                    <button className="btn nextBtn" onClick={()=> setCurrentSection("products")}>Next</button>
+                                    <button className="btn nextBtn" onClick={()=> checkInputs("customerInfo")}>Next</button>
                                 </div>
                             </>
                             :
                             currentSection === "products" ?
                             <>
                                 <h2 className='subTitle'>Products</h2>
-                                <div className="inputsBox">
+                                <div className="inputsBox productsBox">
                                     <div className="input-wrapper" style={{ justifyContent: "unset" }}>
                                     <input 
                                         type="checkbox" 
@@ -483,12 +513,12 @@ function App() {
                                 </div>
                                 <div className="navigateBtns">
                                     <button className="btn backBtn" onClick={()=> setCurrentSection("customerInfo")}>Back</button>
-                                    <button className="btn nextBtn" onClick={()=> setCurrentSection("furtherInformation")}>Next</button>
+                                    <button className="btn nextBtn" onClick={()=> checkInputs("products")}>Next</button>
                                 </div>
                             </>
                             :
 
-                            currentSection === "furtherInformation" ?
+                            currentSection === "furtherInfo" ?
                             <>
                                 <h2 className='subTitle'>Further Information</h2>
                                 <div className="inputsBox">
@@ -561,6 +591,8 @@ function App() {
                     </>
 
                     }
+
+                    {response && <div className='responseBox'>{response}</div>}
                 </div>
             </div>
       </div>
