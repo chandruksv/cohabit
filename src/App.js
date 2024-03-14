@@ -9,6 +9,7 @@ function App() {
     const [orderMade, setOrderMade] = useState(false);
 
     const [currentSection, setCurrentSection] = useState("customerInfo");
+    const [activeProducts, setActiveProducts] = useState("bundles");
 
     const [state, setState] = useState({
         name:"",
@@ -278,234 +279,247 @@ function App() {
                             currentSection === "products" ?
                             <>
                                 <h2 className='subTitle'>Products</h2>
+                                <div className="activeProductsBtns">
+                                    <button className={activeProducts === "bundles" ? 'activeProductsBtn selected' : 'activeProductsBtn'} onClick={()=> setActiveProducts("bundles")}>Bundles</button>
+                                    <button className={activeProducts === "others" ? 'activeProductsBtn selected' : 'activeProductsBtn'} onClick={()=> setActiveProducts("others")}>Add-ons</button>
+                                </div>
                                 <div className="inputsBox productsBox">
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                    <input 
-                                        type="checkbox" 
-                                        id="studioBundle" 
-                                        name="studioBundle" 
-                                        value={299}
-                                        checked={state.studioBundle}
-                                        onChange={handleCheckBoxChange} 
-                                        style={{ width: "auto", minWidth: "auto" }} 
-                                    />
-                                    <label 
-                                        htmlFor="studioBundle" 
-                                        style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                    >
-                                        Studio bundle 299.00SEK
-                                    </label>
-                                    <p>Basic studio bundle of a single bed with a table and chair</p>
-                                    </div>
+                                    {activeProducts === "bundles" ? 
+                                        <>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                            <input 
+                                                type="checkbox" 
+                                                id="studioBundle" 
+                                                name="studioBundle" 
+                                                value={299}
+                                                checked={state.studioBundle}
+                                                onChange={handleCheckBoxChange} 
+                                                style={{ width: "auto", minWidth: "auto" }} 
+                                            />
+                                            <label 
+                                                htmlFor="studioBundle" 
+                                                style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                            >
+                                                Studio bundle 299.00SEK
+                                            </label>
+                                            <p>Basic studio bundle of a single bed with a table and chair</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="largerSingleBed" 
-                                            name="largerSingleBed" 
-                                            value={50}
-                                            onChange={handleCheckBoxChange} 
-                                            checked= {state.largerSingleBed}
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="largerSingleBed" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Upgrade to larger single bed 50.00SEK
-                                        </label>
-                                        <p>Make the upgrade on the studio bundle by choosing a larger single bed</p>
-                                    </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="smallDoubleBed" 
-                                            name="smallDoubleBed" 
-                                            value={100}
-                                            checked= {state.smallDoubleBed}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="smallDoubleBed" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Upgrade to small double bed 100.00SEK
-                                        </label>
-                                        <p>Make the upgrade on the studio bundle by choosing a small double bed (140x200)</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="twoSeaterSofa" 
+                                                    name="twoSeaterSofa" 
+                                                    value={150}
+                                                    checked= {state.twoSeaterSofa}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="twoSeaterSofa" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Add on: 2 Seater Sofa 150.00SEK
+                                                </label>
+                                                <p>Add an additional Sofa (two seater) to your studio bundle</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="standardDoubleBed" 
-                                            name="standardDoubleBed" 
-                                            value={150}
-                                            checked= {state.standardDoubleBed}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="standardDoubleBed" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Upgrade to Standard double bed 150.00SEK
-                                        </label>
-                                        <p>Make the upgrade on the studio bundle by choosing a standard double bed (160x200)</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="threeSeaterSofa" 
+                                                    name="threeSeaterSofa" 
+                                                    value={200}
+                                                    checked= {state.threeSeaterSofa}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="threeSeaterSofa" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Add on: 3 Seater Sofa 200.00SEK
+                                                </label>
+                                                <p>Add an additional Sofa (Three seater) to your studio bundle</p>
+                                            </div>
+                                        </>
+                                    :
+                                        <>
+                                        
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="largerSingleBed" 
+                                                    name="largerSingleBed" 
+                                                    value={50}
+                                                    onChange={handleCheckBoxChange} 
+                                                    checked= {state.largerSingleBed}
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="largerSingleBed" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Upgrade to larger single bed 50.00SEK
+                                                </label>
+                                                <p>Make the upgrade on the studio bundle by choosing a larger single bed</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="premiumDoubleBed" 
-                                            name="premiumDoubleBed" 
-                                            value={200}
-                                            checked= {state.premiumDoubleBed}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="premiumDoubleBed" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Upgrade to Premium or Large double bed 200.00SEK
-                                        </label>
-                                        <p>Make the upgrade on the studio bundle by choosing a premium or large double bed (180x200)</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="smallDoubleBed" 
+                                                    name="smallDoubleBed" 
+                                                    value={100}
+                                                    checked= {state.smallDoubleBed}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="smallDoubleBed" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Upgrade to small double bed 100.00SEK
+                                                </label>
+                                                <p>Make the upgrade on the studio bundle by choosing a small double bed (140x200)</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="twoChairs" 
-                                            name="twoChairs" 
-                                            value={50}
-                                            checked= {state.twoChairs}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="twoChairs" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Upgrade to Two chairs 50.00SEK
-                                        </label>
-                                        <p>Make the upgrade on the studio bundle by choosing two chairs</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="standardDoubleBed" 
+                                                    name="standardDoubleBed" 
+                                                    value={150}
+                                                    checked= {state.standardDoubleBed}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="standardDoubleBed" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Upgrade to Standard double bed 150.00SEK
+                                                </label>
+                                                <p>Make the upgrade on the studio bundle by choosing a standard double bed (160x200)</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="fourChairs" 
-                                            name="fourChairs" 
-                                            value={100}
-                                            checked= {state.fourChairs}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="fourChairs" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Upgrade to 4 chairs 100.00SEK
-                                        </label>
-                                        <p>Make the upgrade on the studio bundle by choosing four chairs</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="premiumDoubleBed" 
+                                                    name="premiumDoubleBed" 
+                                                    value={200}
+                                                    checked= {state.premiumDoubleBed}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="premiumDoubleBed" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Upgrade to Premium or Large double bed 200.00SEK
+                                                </label>
+                                                <p>Make the upgrade on the studio bundle by choosing a premium or large double bed (180x200)</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="largerDiningTable" 
-                                            name="largerDiningTable"
-                                            value={100} 
-                                            checked= {state.largerDiningTable}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="largerDiningTable" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Upgrade to larger dining table 100.00SEK
-                                        </label>
-                                        <p>Make the upgrade on the studio bundle to a large dining table</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="twoChairs" 
+                                                    name="twoChairs" 
+                                                    value={50}
+                                                    checked= {state.twoChairs}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="twoChairs" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Upgrade to Two chairs 50.00SEK
+                                                </label>
+                                                <p>Make the upgrade on the studio bundle by choosing two chairs</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="storageShelves" 
-                                            name="storageShelves" 
-                                            value={100}
-                                            checked= {state.storageShelves}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="storageShelves" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Add on: Storage / Shelves 100.00SEK
-                                        </label>
-                                        <p>Add additional storage to your studio bundle</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="fourChairs" 
+                                                    name="fourChairs" 
+                                                    value={100}
+                                                    checked= {state.fourChairs}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="fourChairs" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Upgrade to 4 chairs 100.00SEK
+                                                </label>
+                                                <p>Make the upgrade on the studio bundle by choosing four chairs</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="rug" 
-                                            name="rug" 
-                                            value={100}
-                                            onChange={handleCheckBoxChange} 
-                                            checked= {state.rug}
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="rug" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Add on: Rug 100.00SEK
-                                        </label>
-                                        <p>Add an additional rug to your studio bundle</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="largerDiningTable" 
+                                                    name="largerDiningTable"
+                                                    value={100} 
+                                                    checked= {state.largerDiningTable}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="largerDiningTable" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Upgrade to larger dining table 100.00SEK
+                                                </label>
+                                                <p>Make the upgrade on the studio bundle to a large dining table</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="twoSeaterSofa" 
-                                            name="twoSeaterSofa" 
-                                            value={150}
-                                            checked= {state.twoSeaterSofa}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="twoSeaterSofa" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Add on: 2 Seater Sofa 150.00SEK
-                                        </label>
-                                        <p>Add an additional Sofa (two seater) to your studio bundle</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="storageShelves" 
+                                                    name="storageShelves" 
+                                                    value={100}
+                                                    checked= {state.storageShelves}
+                                                    onChange={handleCheckBoxChange} 
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="storageShelves" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Add on: Storage / Shelves 100.00SEK
+                                                </label>
+                                                <p>Add additional storage to your studio bundle</p>
+                                            </div>
 
-                                    <div className="input-wrapper" style={{ justifyContent: "unset" }}>
-                                        <input 
-                                            type="checkbox" 
-                                            id="threeSeaterSofa" 
-                                            name="threeSeaterSofa" 
-                                            value={200}
-                                            checked= {state.threeSeaterSofa}
-                                            onChange={handleCheckBoxChange} 
-                                            style={{ width: "auto", minWidth: "auto" }} 
-                                        />
-                                        <label 
-                                            htmlFor="threeSeaterSofa" 
-                                            style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                        >
-                                            Add on: 3 Seater Sofa 200.00SEK
-                                        </label>
-                                        <p>Add an additional Sofa (Three seater) to your studio bundle</p>
-                                    </div>
+                                            <div className="productBox" style={{ justifyContent: "unset" }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="rug" 
+                                                    name="rug" 
+                                                    value={100}
+                                                    onChange={handleCheckBoxChange} 
+                                                    checked= {state.rug}
+                                                    style={{ width: "auto", minWidth: "auto" }} 
+                                                />
+                                                <label 
+                                                    htmlFor="rug" 
+                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
+                                                >
+                                                    Add on: Rug 100.00SEK
+                                                </label>
+                                                <p>Add an additional rug to your studio bundle</p>
+                                            </div>
+                                        </>
+                                    }
+                                   
                                 </div>
                                 <div className="totalPrice">
                                     <div>Total</div>
