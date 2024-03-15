@@ -134,7 +134,7 @@
   font-weight: bold;
 }
 .productsBox {
-	max-height: 60vh;
+	max-height: 45vh;
 	overflow: scroll;
 	display: flex;
 	gap: 10px;
@@ -309,5 +309,24 @@
   }
   100% {
     transform: translate(24px, 0);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .productsBox {
+    max-height: 50vh;
+  }
+  .inputsBox{
+    min-height: 400px;
+  }
+  .input-wrapper{
+    min-width: unset;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .input-wrapper input, textarea {
+    min-width: unset;
+    width: 90%;
   }
 }
