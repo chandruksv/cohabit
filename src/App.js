@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
-import {saveAs} from 'file-saver';
+// import {saveAs} from 'file-saver';
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -13,7 +13,6 @@ function App() {
 
     const [state, setState] = useState({
         name:"",
-        customerId:0,
         email:"",
         emailWithoutDomain:"",
         domain:"@hotmail.com",
@@ -33,10 +32,8 @@ function App() {
         rug:false,
         twoSeaterSofa:false,
         threeSeaterSofa:false,
-        individualFurniture:"",
         deliveryDate:"",
         timePreference:"",
-        preferenceFurniture:"",
         anythingElse:"",
         userConsent:false,
         total:0,
@@ -49,7 +46,6 @@ function App() {
 
     const initialState = {
         name:"",
-        customerId:0,
         email:"",
         emailWithoutDomain:"",
         domain:"@hotmail.com",
@@ -69,10 +65,8 @@ function App() {
         rug:false,
         twoSeaterSofa:false,
         threeSeaterSofa:false,
-        individualFurniture:"",
         deliveryDate:"",
         timePreference:"",
-        preferenceFurniture:"",
         anythingElse:"",
         userConsent:false,
         total:0,
@@ -110,7 +104,7 @@ function App() {
         setLoading(true);
         setResponse("");
 
-        axios.post('sendOrder', state)
+        axios.post('sendEmails', state)
             .then((res)=>{
                 console.log(res);
             })
@@ -134,48 +128,48 @@ function App() {
 
   }
 
-  const createAndDownloadPdf = () => {
-    if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0 && state.deliveryDate !== "" && state.timePreference !== "") {
-        setLoading(true);
-        setResponse("");
+//   const createAndDownloadPdf = () => {
+//     if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0 && state.deliveryDate !== "" && state.timePreference !== "") {
+//         setLoading(true);
+//         setResponse("");
 
-        axios.post('create-pdf', state)
-            .then(()=> axios.get('get-pdf', {responseType:"blob"}))
-            .then((res)=>{
-                const pdfBlob = new Blob([res.data], {type: "application/pdf"});
-                saveAs(pdfBlob, "order_conformation_Cohabit.pdf");
-            })
-            .catch((error) => {
-                // setResponse(error.response.data);
-                setResponse("Something went wrong! Please call us to complete your order!");
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    setResponse("");
-                }, 2000);
+//         axios.post('create-pdf', state)
+//             .then(()=> axios.get('get-pdf', {responseType:"blob"}))
+//             .then((res)=>{
+//                 const pdfBlob = new Blob([res.data], {type: "application/pdf"});
+//                 saveAs(pdfBlob, "order_conformation_Cohabit.pdf");
+//             })
+//             .catch((error) => {
+//                 // setResponse(error.response.data);
+//                 setResponse("Something went wrong! Please call us to complete your order!");
+//             })
+//             .finally(() => {
+//                 setTimeout(() => {
+//                     setResponse("");
+//                 }, 2000);
 
-                // setState(initialState);
-                setOrderMade(true);
-                setCurrentSection("customerInfo");
-                setLoading(false);
-            });
-    }else{
-        setResponse("Fill all the required areas please!");
-    }
+//                 // setState(initialState);
+//                 setOrderMade(true);
+//                 setCurrentSection("customerInfo");
+//                 setLoading(false);
+//             });
+//     }else{
+//         setResponse("Fill all the required areas please!");
+//     }
 
-  }
+//   }
 
-  const createAndDownloadCV = () => {
-    axios.post('create-cv')
-        .then(()=> axios.get('get-cv', {responseType:"blob"}))
-        .then((res)=>{
-            const pdfBlob = new Blob([res.data], {type: "application/pdf"});
-            saveAs(pdfBlob, "Resume_Mehmet_Kaan_Taspunar.pdf");
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-  }
+//   const createAndDownloadCV = () => {
+//     axios.post('create-cv')
+//         .then(()=> axios.get('get-cv', {responseType:"blob"}))
+//         .then((res)=>{
+//             const pdfBlob = new Blob([res.data], {type: "application/pdf"});
+//             saveAs(pdfBlob, "Resume_Mehmet_Kaan_Taspunar.pdf");
+//         })
+//         .catch((error) => {
+//             console.log(error);
+//         })
+//   }
 
   const checkInputs = (field) => {
 
@@ -208,15 +202,16 @@ function App() {
 
   return (
     <div className="App">
-      <div className="content">
-        <button style={{display:"none"}} onClick={()=> createAndDownloadCV()}>Get CV</button>
-            
+      <div className="content">    
             <div className="backgroundCircle blueBackgroundTop" />
             <div className="backgroundCircle blueBackgroundBottom" />
             <div className="ordermade">
                 <div className='ordermadeInformation'>
                     
                     <img className='logo' loading='lazy' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
+                    <img className='logo' loading='lazy' src={require("./assets/email/icons/instagram.png")} alt='instagramLogo'/>
+                    <img className='logo' loading='lazy' src={require("./assets/email/icons/facebook.png")} alt='facebookLogo'/>
+                    <img className='logo' loading='lazy' src={require("./assets/email/icons/twitter.png")} alt='twitterLogo'/>
                     
                     {!orderMade ?
                     
@@ -231,10 +226,6 @@ function App() {
                                         <label htmlFor="name">Name *</label>
                                         <input id="name" type="text" name='name' onChange={handleChange} value={state.name}/>
                                     </div>
-                                    {/* <div className="input-wrapper">
-                                        <label htmlFor="customerId">Customer ID</label>
-                                        <input id="customerId" type="number" name='customerId' onChange={handleChange} value={state.customerId}/>
-                                    </div> */}
                                     <div className="input-wrapper">
                                         <label htmlFor="phonenumber">Phone Number *</label>
                                         <input id="phonenumber" type="number" name="phonenumber" onChange={handleChange} value={state.phonenumber}/>
@@ -549,10 +540,6 @@ function App() {
                                 <h2 className='subTitle'>Further Information</h2>
                                 <div className="inputsBox">
                                     <div className="input-wrapper">
-                                        <label htmlFor="individualFurniture">If you need individual furniture on rent and not a bundle, do tell you about your requirement, we will make it work for you!</label>
-                                        <textarea id="individualFurniture" type="text" name='individualFurniture' onChange={handleChange} value={state.individualFurniture}/>
-                                    </div>
-                                    <div className="input-wrapper">
                                         <label htmlFor="deliveryDate">Preferred Delivery Date</label>
                                         <input id="deliveryDate" type="date" name='deliveryDate' style={{width:"auto", minWidth: "auto"}} onChange={handleChange} value={state.deliveryDate}/>
                                     </div>
@@ -566,10 +553,6 @@ function App() {
                                         </select>
                                     </div>
 
-                                    <div className="input-wrapper">
-                                        <label htmlFor="preferenceFurniture">If you have any preferences with regard to your furniture, do tell us!</label>
-                                        <textarea id="preferenceFurniture" type="text" name='preferenceFurniture' onChange={handleChange} value={state.preferenceFurniture}/>
-                                    </div>
                                     <div className="input-wrapper">
                                         <label htmlFor="anythingElse">Is there anything else you want us to know about your order?</label>
                                         <textarea id="anythingElse" type="text" name='anythingElse' onChange={handleChange} value={state.anythingElse}/>
