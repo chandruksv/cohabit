@@ -209,8 +209,7 @@ function App() {
                 <div className='ordermadeInformation'>
                     
                     <img className='logo' loading='lazy' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
-                    <img className='logo' loading='lazy' src={require("./assets/email/fb.png")} alt='facebookLogo'/>
-                    
+                
                     {!orderMade ?
                     
                     <>
