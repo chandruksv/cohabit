@@ -105,6 +105,35 @@ function App() {
         }));
     };
 
+  const sendOrder = () => {
+    if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0 && state.deliveryDate !== "" && state.timePreference !== "") {
+        setLoading(true);
+        setResponse("");
+
+        axios.post('sendOrder', state)
+            .then((res)=>{
+                console.log(res);
+            })
+            .catch((error) => {
+                // setResponse(error.response.data);
+                setResponse("Something went wrong! Please call us to complete your order!");
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    setResponse("");
+                }, 2000);
+
+                // setState(initialState);
+                setOrderMade(true);
+                setCurrentSection("customerInfo");
+                setLoading(false);
+            });
+    }else{
+        setResponse("Fill all the required areas please!");
+    }
+
+  }
+
   const createAndDownloadPdf = () => {
     if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0 && state.deliveryDate !== "" && state.timePreference !== "") {
         setLoading(true);
@@ -404,24 +433,7 @@ function App() {
                                                 <p>Make the upgrade on the studio bundle by choosing a standard double bed (160x200)</p>
                                             </div>
 
-                                            <div className="productBox" style={{ justifyContent: "unset" }}>
-                                                <input 
-                                                    type="checkbox" 
-                                                    id="premiumDoubleBed" 
-                                                    name="premiumDoubleBed" 
-                                                    value={200}
-                                                    checked= {state.premiumDoubleBed}
-                                                    onChange={handleCheckBoxChange} 
-                                                    style={{ width: "auto", minWidth: "auto" }} 
-                                                />
-                                                <label 
-                                                    htmlFor="premiumDoubleBed" 
-                                                    style={{ fontWeight: 'normal', margin: "0px 5px 0px 10px", width: "30%" }}
-                                                >
-                                                    Upgrade to Premium or Large double bed 200.00SEK
-                                                </label>
-                                                <p>Make the upgrade on the studio bundle by choosing a premium or large double bed (180x200)</p>
-                                            </div>
+                                          
 
                                             <div className="productBox" style={{ justifyContent: "unset" }}>
                                                 <input 
@@ -569,7 +581,7 @@ function App() {
                                 </div>
                                 <div className="navigateBtns">
                                     <button className="btn backBtn" onClick={()=> setCurrentSection("products")}>Back</button>
-                                    <button className='btn submitBtn' onClick={createAndDownloadPdf} disabled={loading}>
+                                    <button className='btn submitBtn' onClick={sendOrder} disabled={loading}>
                                         {!loading ? "Submit" : 
                                             <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                         }

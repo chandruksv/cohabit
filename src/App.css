@@ -30,6 +30,7 @@
 	align-items: center;
 	width: 100%;
 	min-height: 400px;
+  height: 88%;
 }
 .navigateBtns{
   width: 95%;
@@ -134,7 +135,8 @@
   font-weight: bold;
 }
 .productsBox {
-	max-height: 45vh;
+	/* max-height: 45vh; */
+  max-height: 50%;
 	overflow: scroll;
 	display: flex;
 	gap: 10px;
