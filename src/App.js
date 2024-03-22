@@ -424,7 +424,7 @@ function App() {
                                             {products.map(product => {
                                                 return (        
                                                     <div key={product.id} className="productBox" style={{ justifyContent: "unset" }}>
-                                                        <img width={"60%"} src={require(`./assets/furnitures/${product.imageUrl}`)} alt={product.name} />
+                                                        <img className='productImg' src={require(`./assets/furnitures/${product.imageUrl}`)} alt={product.name} />
                                                         <h3>{product.name}</h3>
                                                         <h5>Cost: {product.cost}</h5>
                                                         <button>Add</button>
