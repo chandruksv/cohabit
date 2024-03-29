@@ -197,6 +197,7 @@
 	flex-direction: row;
 	justify-content: center;
 	align-items: flex-start;
+	padding-bottom: 10px;
 }
 .productBox {
 	display: flex;
@@ -222,7 +223,8 @@
 }
 .productImg {
 	width: 30%;
-	min-width: 130px;
+	/* min-width: 130px; */
+	min-width: 200px;
 	max-width: 200px;
 	border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
@@ -299,6 +301,19 @@
 }
 .submitBtn:hover, .newOrderBtn:hover, .selectProductBtn:hover{
   background-color: black;
+}
+.backToProductTypeSelection {
+	position: absolute;
+	top: 60px;
+	right: 30px;
+	z-index: 1;
+}
+.notice{
+	color: rgb(187, 10, 10);
+	margin-top: 0;
+	width: 60%;
+	text-align: center;
+	max-width: 500px;
 }
 .responseBox {
 	position: absolute;
@@ -409,8 +424,7 @@
 	align-items: center;
 }
 .portrait{
-  width: 50%;
-  max-width: 550px;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0px 0px 10px gray;
 }
@@ -422,10 +436,32 @@
 	box-shadow: 0px 0px 10px black;
 	max-height: 90%;
 	overflow: scroll;
+	width: 90%;
 }
-
-.newOrderBtn{
-
+.orderMadeInformationContent {
+	width: 90%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: auto;
+	max-width: 500px;
+}
+.orderMadeInformationContent > h3{
+	margin-bottom: 0;
+	font-weight: normal;
+}
+.name-span{
+	display: none;
+  }
+.orderMadeInformationContent > h2{
+	margin-top: 5px;
+}
+.orderMadeInformationContent > p{
+	margin-top: 0px;
+	line-height: 22.5px;
+}
+.btn.newOrderBtn{
+	margin-bottom: 0;
 }
 .link{
   color: black;
@@ -434,16 +470,15 @@
 .link:hover{
   color: skyblue;
 }
-.thanksBox{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
+.thanksBox {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 }
 .thanksText {
 	line-height: 5.5px;
-	font-weight: bold;
 }
 
 /* Loading Animation */
@@ -506,6 +541,28 @@
   .container{
 	justify-content: flex-start;
 	height: 83%;
+  }
+  .ordermadeInformation {
+	height: 90%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.orderMadeInformationContent {
+	height: 85%;
+	justify-content: flex-start;
+	gap: 20px;
+}
+.orderMadeInformationContent > h3 {
+	font-size: 30px;
+	margin: 0;
+  }
+.orderMadeInformationContent > h2 {
+	margin: 0;
+	display: none;
+  }
+  .nameSpan{
+	display: inline;
   }
   /* .ordermakingBox{
 	height: 90%;
@@ -582,6 +639,10 @@
 }
 .totalPrice{
 	top: 23px;
+	right: 15px;
+}
+.backToProductTypeSelection {
+	top: 73px;
 	right: 15px;
 }
 .productText{

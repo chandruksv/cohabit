@@ -6,7 +6,7 @@ import axios from 'axios';
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
-    const [orderMade, setOrderMade] = useState(false);
+    const [orderMade, setOrderMade] = useState(true);
 
     const [activeTitle, setActiveTitle] = useState("Customer Information");
 
@@ -119,25 +119,14 @@ function App() {
         deliveryCharge:400,
         productPrice:299,
         shippingPrice:400,
-        product:"prudktn name",
+        product:"product name",
         orderList:[],
-        studioBundle:false,
-        largerSingleBed:false,
-        smallDoubleBed:false,
-        standardDoubleBed:false,
-        premiumDoubleBed:false,
-        twoChairs:false,
-        fourChairs:false,
-        largerDiningTable:false,
-        storageShelves:false,
-        rug:false,
-        twoSeaterSofa:false,
-        threeSeaterSofa:false,
         deliveryDate:"",
         timePreference:"",
         anythingElse:"",
         userConsent:false,
         total:0,
+        totalCost:0,
         SNO:1,
         description:"",
         dimensions:"",
@@ -159,23 +148,12 @@ function App() {
         shippingPrice:400,
         product:"prudktn name",
         orderList:[],
-        studioBundle:false,
-        largerSingleBed:false,
-        smallDoubleBed:false,
-        standardDoubleBed:false,
-        premiumDoubleBed:false,
-        twoChairs:false,
-        fourChairs:false,
-        largerDiningTable:false,
-        storageShelves:false,
-        rug:false,
-        twoSeaterSofa:false,
-        threeSeaterSofa:false,
         deliveryDate:"",
         timePreference:"",
         anythingElse:"",
         userConsent:false,
         total:0,
+        totalCost:0,
         SNO:1,
         description:"",
         dimensions:"",
@@ -188,15 +166,14 @@ function App() {
         if(name === "deliveryDate" || name === "timePreference"){
             let chargeOfDelivery = 400;
             let selectedDate = new Date(value);
-            let dayOfWeek = selectedDate.getDay();
             let timePreference = state.timePreference;
-
-            if (name === "timePreference") timePreference = value;
-
+            
             if(name === "timePreference"){
                 selectedDate = new Date(state.deliveryDate);
-                dayOfWeek = selectedDate.getDay();
+                timePreference = value;
             }
+
+            let dayOfWeek = selectedDate.getDay();
 
             if (dayOfWeek === 0 || dayOfWeek === 6) {
                 chargeOfDelivery = 600;
@@ -208,10 +185,11 @@ function App() {
 
             setState(prevState => ({
                 ...prevState,
-                deliveryCharge:chargeOfDelivery
+                deliveryCharge:chargeOfDelivery,
+                totalCost:parseInt(state.total)+chargeOfDelivery,
             }));
         }
-
+     
         setState(prevState => ({
             ...prevState,
             [name]: value,
@@ -233,34 +211,34 @@ function App() {
         }));
     };
 
-  const sendOrder = () => {
-    if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0) {
-        setLoading(true);
-        setResponse("");
+    const sendOrder = () => {
+        if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0) {
+            setLoading(true);
+            setResponse("");
 
-        axios.post('sendEmails', state)
-            .then((res)=>{
-                console.log(res);
-            })
-            .catch((error) => {
-                // setResponse(error.response.data);
-                setResponse("Something went wrong! Please call us to complete your order!");
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    setResponse("");
-                }, 2000);
+            axios.post('sendEmails', state)
+                .then((res)=>{
+                    console.log(res);
+                })
+                .catch((error) => {
+                    // setResponse(error.response.data);
+                    setResponse("Something went wrong! Please call us to complete your order!");
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        setResponse("");
+                    }, 2000);
 
-                // setState(initialState);
-                setOrderMade(true);
-                setCurrentSection("customerInfo");
-                setLoading(false);
-            });
-    }else{
-        setResponse("Fill all the required areas please!");
+                    // setState(initialState);
+                    setOrderMade(true);
+                    setCurrentSection("customerInfo");
+                    setLoading(false);
+                });
+        }else{
+            setResponse("Fill all the required areas please!");
+        }
+
     }
-
-  }
 
 //   const createAndDownloadPdf = () => {
 //     if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0 && state.deliveryDate !== "" && state.timePreference !== "") {
@@ -305,81 +283,83 @@ function App() {
 //         })
 //   }
 
-  const checkInputs = (field) => {
+    const checkInputs = (field) => {
 
-    switch(field){
-        case 'customerInfo':
-            if (state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.phonenumber !== 0 && state.period !== "") {
-                setCurrentSection("products");
-                setActiveTitle("Products");
-            }else{
-                setResponse("Please fill all the required fields!");
-                setTimeout(() => {
-                    setResponse("");
-                }, 3000);
-            }
-            break;
-        case 'products':
-            if (state.total > 0) {
-                setCurrentSection("furtherInfo");
-                setActiveTitle("Further Information");
-            }else{
-                setResponse("Please pick the furniture you want!");
-                setTimeout(() => {
-                    setResponse("");
-                }, 3000);
-            }
-            break;
-        case 'furtherInfo':
-            if (state.deliveryDate !== "" && state.timePreference !== "" && state.userConsent !== false) {
-                setCurrentSection("summary");
-                setActiveTitle("Order Summary");
-            }else{
-                setResponse("Please fill all the required fields!");
-                setTimeout(() => {
-                    setResponse("");
-                }, 3000);
-            }
-            break;
-        default:
-            console.log("hiii");
-            break;
+        switch(field){
+            case 'customerInfo':
+                if (state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.phonenumber !== 0 && state.period !== "") {
+                    setCurrentSection("products");
+                    setActiveTitle("Products");
+                }else{
+                    setResponse("Please fill all the required fields!");
+                    setTimeout(() => {
+                        setResponse("");
+                    }, 3000);
+                }
+                break;
+            case 'products':
+                if (state.total > 0) {
+                    setCurrentSection("furtherInfo");
+                    setActiveTitle("Further Information");
+                }else{
+                    setResponse("Please pick the furniture you want!");
+                    setTimeout(() => {
+                        setResponse("");
+                    }, 3000);
+                }
+                break;
+            case 'furtherInfo':
+                if (state.deliveryDate !== "" && state.timePreference !== "") {
+                    setCurrentSection("summary");
+                    setActiveTitle("Order Summary");
+                }else{
+                    setResponse("Please fill all the required fields!");
+                    setTimeout(() => {
+                        setResponse("");
+                    }, 3000);
+                }
+                break;
+            default:
+                console.log("hiii");
+                break;
+        }
     }
-  }
 
-  const addToOrderlist = (bundle) => {
-    let newOrderlist = state.orderList;
+    const addToOrderlist = (bundle) => {
+        let newOrderlist = state.orderList;
 
-    if(!newOrderlist.includes(bundle)){
-        newOrderlist.push(bundle);
-        let currentPrice = parseFloat(state.total);
-        currentPrice += bundle.cost;
+        if(!newOrderlist.includes(bundle)){
+            newOrderlist.push(bundle);
+            let currentPrice = parseFloat(state.total);
+            currentPrice += bundle.cost;
 
-        setState(prevState => ({
-            ...prevState,
-            orderList: newOrderlist,
-            total: currentPrice
-        }));
+            setState(prevState => ({
+                ...prevState,
+                orderList: newOrderlist,
+                total: currentPrice,
+                totalCost:currentPrice+state.deliveryCharge,
+            }));
 
-        setActiveProducts("notSelected");
+            setActiveProducts("notSelected");
+        }
     }
-  }
 
-  const removeFromOrderlist = (bundle) => {
-    let newOrderlist = state.orderList;
+    const removeFromOrderlist = (bundle) => {
+        let newOrderlist = state.orderList;
 
-    if(newOrderlist.includes(bundle)){
-        newOrderlist.splice(newOrderlist.indexOf(bundle), 1);
-        let currentPrice = parseFloat(state.total);
-        currentPrice -= bundle.cost;
+        if(newOrderlist.includes(bundle)){
+            newOrderlist.splice(newOrderlist.indexOf(bundle), 1);
+            let currentPrice = parseFloat(state.total);
+            currentPrice -= bundle.cost;
 
-        setState(prevState => ({
-            ...prevState,
-            orderList: newOrderlist,
-            total: currentPrice
-        }));
+            setState(prevState => ({
+                ...prevState,
+                orderList: newOrderlist,
+                total: currentPrice,
+                totalCost:currentPrice+state.deliveryCharge,
+            }));
+        }
     }
-  }
 
   return (
     <div className="App">
@@ -528,7 +508,7 @@ function App() {
                                     </div>
                                     :
                                     <>
-                                    
+                                    <button className='btn backToProductTypeSelection' onClick={()=>setActiveProducts("notSelected")}>&#x25C0;</button>
                                         {activeProducts === "bundles" &&
                                             <>
                                                     {bundles.map(bundle => {
@@ -608,15 +588,17 @@ function App() {
                                             <option value="Later than 17:00">After 17:00</option>
                                         </select>
                                     </div>
-
+                                    {state.deliveryCharge === 600 && 
+                                        <p className='notice'>Delivery on weekends or late hours may incur additional charges.</p>
+                                    }
                                     <div className="input-wrapper">
                                         <label htmlFor="anythingElse">Is there anything else you want us to know about your order?</label>
                                         <textarea id="anythingElse" type="text" name='anythingElse' onChange={handleChange} value={state.anythingElse}/>
                                     </div>
-                                    <div className="input-wrapper" style={{ justifyContent:"center", flexDirection:'row'}}>
+                                    {/* <div className="input-wrapper" style={{ justifyContent:"center", flexDirection:'row'}}>
                                         <input type="checkbox" id="userConsent" name="userConsent" onChange={handleCheckBoxChange} checked={state.userConsent} style={{ width:"auto", minWidth:"auto", marginLeft:'15px' }}/>
                                         <label htmlFor="userConsent" className='userContentLabel' style={{ width:"unset"}}>I agree that the gathered information can be used for further communication with Cohabit *</label>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="navigateBtns">
                                     <button className="btn backBtn" onClick={()=> {setCurrentSection("products"); setActiveTitle("Products")}}>Back</button>
@@ -681,7 +663,7 @@ function App() {
                                         </div>
                                         <div className="summary-wrapper" style={{fontWeight:'bold', fontSize:'18px'}}>
                                             <p>Total Cost</p>
-                                            <p>{state.total}.00 SEK</p>
+                                            <p>{state.totalCost}.00 SEK</p>
                                         </div>
                                     </div>
 
@@ -699,13 +681,14 @@ function App() {
                                         {state.anythingElse !== "" &&
                                             <div className="summary-wrapper" style={{flexDirection:'column'}}>
                                                 <p>Is there anything else you want us to know about your order?</p>
-                                                <p style={{padding: '20px',marginTop: '10px'}}>{state.anythingElse}</p>
+                                                <p style={{padding: '20px',marginTop: '10px', fontWeight:'bold'}}>{state.anythingElse}</p>
                                             </div>
-                                        }
-                                        <div className="summary-wrapper">
-                                            <p>I agree that the gathered information can be used for further communication with Cohabit</p>
-                                            <p>Checked</p>
-                                        </div>
+                                        }  
+                                    </div>
+                                    
+                                    <div className="summary-wrapper" style={{ justifyContent:"center", flexDirection:'row', gap:'10px', alignItems:'center', fontWeight:'bold', marginTop:'20px',marginBottom:'40px'}}>
+                                        <input type="checkbox" id="userConsent" name="userConsent" onChange={handleCheckBoxChange} checked={state.userConsent}/>
+                                        <label htmlFor="userConsent" className='userContentLabel'>I agree that the gathered information can be used for further communication with Cohabit *</label>
                                     </div>
                                 </div>
                                 <div className="navigateBtns">
@@ -729,19 +712,22 @@ function App() {
                     :
                     <div className='ordermadeInformation'>
                         <img className='logo' loading='lazy' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
-                        {/* <h1>Thanks {state.name}!</h1> */}
-                        <h3>Thank you for Choosing Circularity, {state.name}!</h3>
+                        <div className="orderMadeInformationContent">
+                            <h3>Thank you for choosing circularity with Cohabit, <span className='name-span'>{state.name}!</span></h3>
+                            <h2>{state.name}!</h2>
 
-                        <p>Cohabit has received your order, and you will receive a confirmation email shortly. 
-                            If you have further questions, contact us at <a className='link' href="mailto:hello@cohabit.se">Customer Service</a> or WhatsApp <a className='link' href="tel:+46709526846">+46 709 52 68 46</a>.</p>
-                        <button className='btn newOrderBtn' onClick={()=> {setOrderMade(""); setState(initialState)}}>New Order</button>
-                        <div className='portraitBox'>
-                            <img className='portrait' loading='lazy' src={require("./assets/portrait.jpg")} alt='cohabitTeamPortrait'/>
-                        </div>
-                        <div className='thanksBox'>
-                            <div className="thanksText">
-                                <p>Kind regards,</p>
-                                <p>Cohabit Team!</p>
+                            <p>Cohabit has received your order, and you will receive a confirmation email shortly. 
+                                If you have further questions, contact us at <a className='link' href="mailto:hello@cohabit.se">hello@cohabit.se</a> or WhatsApp <a className='link' href="tel:+46709526846">+46 709 52 68 46</a>.</p>
+                            
+                            <div className='portraitBox'>
+                                <img className='portrait' loading='lazy' src={require("./assets/portrait.jpg")} alt='cohabitTeamPortrait'/>
+                            </div>
+                            <div className='thanksBox'>
+                                <div className="thanksText">
+                                    <p>Kind regards,</p>
+                                    <p>Cohabit Team!</p>
+                                </div>
+                                <button className='btn newOrderBtn' onClick={()=> {setOrderMade(""); setState(initialState)}}>New Order</button>
                             </div>
                         </div>
                     </div>
