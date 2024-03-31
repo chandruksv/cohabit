@@ -6,7 +6,7 @@ import axios from 'axios';
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
-    const [orderMade, setOrderMade] = useState(true);
+    const [orderMade, setOrderMade] = useState(false);
 
     const [activeTitle, setActiveTitle] = useState("Customer Information");
 
@@ -21,6 +21,7 @@ function App() {
             description:"Basic studio bundle of a single bed with a table and chair.",
             cost: 299,
             type:'bundle',
+            quantity:1
         },
     ])
     const [products, setProducts] = useState([
@@ -31,6 +32,8 @@ function App() {
             imageUrl: "single_bed.jpg",
             cost: 199,
             type:'singleItem',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/single_bed.jpg?raw=true',
         },
         {
             id: 2,
@@ -39,6 +42,8 @@ function App() {
             imageUrl: "small_double_bed.jpg",
             cost: 299,
             type:'singleItem',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/small_double_bed.jpg?raw=true'
         },
         {
             id: 3,
@@ -46,63 +51,81 @@ function App() {
             description: "140cm x 160cm",
             imageUrl: "double_bed.jpg",
             type:'singleItem',
-            cost: 399
+            cost: 399,
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.jpg?raw=true'
         },
         {
             id: 4,
             name: "Table (Small)",
             imageUrl: "small_table.jpg",
             type:'singleItem',
-            cost: 99
+            cost: 99,
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/small_table.jpg?raw=true'
         },
         {
             id: 5,
             name: "Table (Large)",
             imageUrl: "large_table.jpg",
             type:'singleItem',
-            cost: 149
+            cost: 149,
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/large_table.jpg?raw=true'
         },
         {
             id: 6,
             name: "Chair",
             imageUrl: "chair.jpg",
             type:'singleItem',
-            cost: 50
+            cost: 50,
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
         },
         {
             id: 7,
             name: "Professional/Working Chair",
             type:'singleItem',
             imageUrl: "work_chair.jpg",
-            cost: 100
+            cost: 100,
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/work_chair.jpg?raw=true'
         },
         {
             id: 8,
             name: "Bedside Storage (Small)",
-            imageUrl: "chair.jpg",
+            imageUrl: "storage_small.jpg",
             type:'singleItem',
-            cost: 50
+            cost: 50,
+            quantity:1,
+            githubIMGURL:''
         },
         {
             id: 9,
             name: "Shelf/Storage (Medium)",
-            imageUrl: "chair.jpg",
+            imageUrl: "storage_medium.jpg",
             type:'singleItem',
-            cost: 100
+            cost: 100,
+            quantity:1,
+            githubIMGURL:''
         },
         {
             id: 10,
             name: "Shelf/Storage (Large)",
-            imageUrl: "chair.jpg",
+            imageUrl: "storage_large.jpg",
             type:'singleItem',
-            cost: 150
+            cost: 150,
+            quantity:1,
+            githubIMGURL:''
         },
         {
             id: 11,
             name: "Lights",
-            imageUrl: "chair.jpg",
+            imageUrl: "lights.jpg",
             type:'singleItem',
-            cost: 50
+            cost: 50,
+            quantity:1,
+            githubIMGURL:''
         }
     ]);
 
@@ -214,6 +237,7 @@ function App() {
     const sendOrder = () => {
         if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0) {
             setLoading(true);
+            setActiveProducts("notSelected");
             setResponse("");
 
             axios.post('sendEmails', state)
@@ -340,7 +364,7 @@ function App() {
                 totalCost:currentPrice+state.deliveryCharge,
             }));
 
-            setActiveProducts("notSelected");
+            // setActiveProducts("notSelected");
         }
     }
 
@@ -610,7 +634,7 @@ function App() {
                             currentSection === "summary" ?
                             <>
                                 <div className="summaryBoxes">      
-                                    <h3 className='subTitle'>Customer Information</h3>
+                                    <h3 className='subTitle'>Customer Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("customerInfo")}}>&#x270E;</span></h3>
                                     <div className="summaryBox">
                                         <div className="summary-wrapper">
                                             <p>Name</p>
@@ -635,7 +659,7 @@ function App() {
                                 
                                     </div>
 
-                                    <h3 className='subTitle'>Order Details</h3>
+                                    <h3 className='subTitle'>Order Details <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("products")}}>&#x270E;</span></h3>
                                     <div className="summaryBox">
                                         {state.orderList.map(order=>{
                                             return (
@@ -667,7 +691,7 @@ function App() {
                                         </div>
                                     </div>
 
-                                    <h3 className='subTitle'>Further Information</h3>
+                                    <h3 className='subTitle'>Further Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("furtherInfo")}}>&#x270E;</span></h3>
                                     <div className="summaryBox">
                                         <div className="summary-wrapper">
                                             <p>Preferred Delivery Date</p>

@@ -348,6 +348,9 @@
 	padding-bottom: 10px;
 	width: 100%;
 }
+.subTitle span {
+	cursor: pointer;
+}
 .summaryBox {
 	padding: 15px;
 	background-color: #a0ebf2;
