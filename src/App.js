@@ -98,7 +98,7 @@ function App() {
             type:'singleItem',
             cost: 50,
             quantity:1,
-            githubIMGURL:''
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_small.jpg?raw=true'
         },
         {
             id: 9,
@@ -107,7 +107,7 @@ function App() {
             type:'singleItem',
             cost: 100,
             quantity:1,
-            githubIMGURL:''
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_medium.jpg?raw=true'
         },
         {
             id: 10,
@@ -116,7 +116,7 @@ function App() {
             type:'singleItem',
             cost: 150,
             quantity:1,
-            githubIMGURL:''
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_large.jpg?raw=true'
         },
         {
             id: 11,
@@ -125,7 +125,7 @@ function App() {
             type:'singleItem',
             cost: 50,
             quantity:1,
-            githubIMGURL:''
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/lights.jpg?raw=true'
         }
     ]);
 
