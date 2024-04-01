@@ -449,7 +449,12 @@
 	margin: 0;
 	margin-right: 15px;
 }
-
+.orderSummaryAddOnsPart {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding-left: 20px;
+}
 /* Ordermade part */
 .backgroundCircle{
   position: absolute;

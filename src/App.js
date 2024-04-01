@@ -489,7 +489,6 @@ function App() {
     };
 
     const handleAddOn = (addOn) => {
-        console.log(addOn);
         let newAddOnList = state.addOnsList;
 
         if(!newAddOnList.includes(addOn)){
@@ -851,6 +850,18 @@ function App() {
                                                         </div>
                                                         {order.description &&
                                                             <p>{order.description}</p>
+                                                        }
+                                                        {(order.type === "bundle" && state.addOnsList.length > 0) && 
+                                                            <div className='orderSummaryAddOnsPart'>
+                                                                {state.addOnsList.map(addOn => {
+                                                                    return (
+                                                                        <div className='orderTitleAndCost'>
+                                                                            <h5>{addOn.name}</h5>
+                                                                            <h5>{addOn.cost} SEK</h5>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
                                                         }
                                                     </div>
                                                 )
