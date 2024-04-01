@@ -10,8 +10,7 @@ function App() {
 
     const [activeTitle, setActiveTitle] = useState("Customer Information");
 
-    // const [currentSection, setCurrentSection] = useState("customerInfo");
-    const [currentSection, setCurrentSection] = useState("products");
+    const [currentSection, setCurrentSection] = useState("customerInfo");
     const [activeProducts, setActiveProducts] = useState("notSelected");
 
     let [bundles, setBundles] = useState([
@@ -450,6 +449,7 @@ function App() {
             ...prevState,
             orderList: newOrderlist, // Update the orderList
             total: currentPrice, // Update the total price
+            totalCost: currentPrice + state.deliveryCharge
         }));
     };
     
@@ -694,7 +694,7 @@ function App() {
                                                                             return (
                                                                                 <div className='addOn'>
                                                                                     <div className="costPart">
-                                                                                        <input type="checkbox" id="checkbox" name="checkbox" onChange={() => handleAddOn(addOn)}/>
+                                                                                        <input type="checkbox" id="checkbox" name="checkbox" checked={state.addOnsList.includes(addOn)} onChange={() => handleAddOn(addOn)}/>
                                                                                         <p>{addOn.name}</p>
                                                                                     </div>
                                                                                     <p style={{fontWeight:'bold'}}>{addOn.cost} SEK</p>
