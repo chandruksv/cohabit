@@ -934,7 +934,7 @@ function App() {
                         </div>
                     :
                         <div className='ordermadeInformation'>
-                            <img className='logo' loading='lazy' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
+                            <img className='logo' style={{marginTop:'20px'}} loading='lazy' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
                             <div className="orderMadeInformationContent">
                                 <h3>Thank you for choosing circularity with Cohabit, <span className='name-span'>{state.name}!</span></h3>
                                 <h2>{state.name}!</h2>
