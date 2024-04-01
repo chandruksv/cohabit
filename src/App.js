@@ -3,6 +3,8 @@ import './App.css';
 import axios from 'axios';
 // import {saveAs} from 'file-saver';
 
+import Carousel from './Carousel';
+
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
@@ -208,6 +210,17 @@ function App() {
         quantity:1,
         furnitureImgUrl:"",
     }
+
+    const images = [
+        'https://cohabit.se/wp-content/uploads/2023/07/1-300x300.png',
+        'https://cohabit.se/wp-content/uploads/2023/07/2-300x300.png',
+        'https://cohabit.se/wp-content/uploads/2023/07/3-300x300.png',
+        'https://cohabit.se/wp-content/uploads/2023/07/4-300x300.png',
+        'https://cohabit.se/wp-content/uploads/2023/07/5-300x300.png',
+        'https://cohabit.se/wp-content/uploads/2023/07/6-300x300.png',
+        'https://cohabit.se/wp-content/uploads/2023/07/Cohabit-Gallery-300x300.png',
+
+      ];
 
     const handleChange = ({ target: { value, name } }) => {
         
@@ -490,40 +503,30 @@ function App() {
 
     const handleAddOn = (addOn) => {
         let newAddOnList = state.addOnsList;
+        let currentPrice = parseFloat(state.total);
 
         if(!newAddOnList.includes(addOn)){
             newAddOnList.push(addOn);
-            let currentPrice = parseFloat(state.total);
             currentPrice += addOn.cost;
-
-            setState(prevState => ({
-                ...prevState,
-                addOnsList: newAddOnList,
-                total: currentPrice,
-                totalCost:currentPrice+state.deliveryCharge,
-            }));
         }else{
             newAddOnList.splice(newAddOnList.indexOf(addOn), 1);
-            let currentPrice = parseFloat(state.total);
-
             currentPrice -= addOn.cost;
-
-            setState(prevState => ({
-                ...prevState,
-                addOnsList: newAddOnList,
-                total: currentPrice,
-                totalCost:currentPrice+state.deliveryCharge,
-            }));
         }
+
+        setState(prevState => ({
+            ...prevState,
+            addOnsList: newAddOnList,
+            total: currentPrice,
+            totalCost:currentPrice+state.deliveryCharge,
+        }));
     }
 
   return (
     <div className="App">
-      <div className="content">    
             <div className="backgroundCircle blueBackgroundTop" />
-            <div className="backgroundCircle blueBackgroundBottom" />
+      <div className="content">    
+            
             <div className="ordermade">
-                    
                     {!orderMade ?
 
                         <div className='ordermakingBox'>
@@ -596,7 +599,7 @@ function App() {
                                             <input id="address" type="text" placeholder='' name='address' onChange={handleChange} value={state.address}/>
                                         </div>
                                         <div className="input-wrapper">
-                                            <label htmlFor="period">Rental Period *</label>
+                                            <label style={{lineHeight:'1.5', width:'70%'}} htmlFor="period">How long do you want to rent the furniture? *</label>
                                             <select id="period" className='emailEndPoint rentalSelect' name="period" onChange={handleChange} value={state.period} style={{ width: "90px" }}>
                                                 <option value="">- Months</option>
                                                 <option value="Below 3 Months">Below 3 Months</option>
@@ -630,9 +633,13 @@ function App() {
 
                                 currentSection === "products" ?
                                 <>
+                                    <p className='raleway-normal' style={{marginTop: '0', fontSize: '16px'}}>The images that you see are indicative of the type of product offered.</p>
                                     <div className="inputsBox productsBox">
                                         {activeProducts === "notSelected" ? 
                                         <div className="activeProductsBtns">
+                                            <div className="productSelectionDiv carouselBox">
+                                                <Carousel images={images} />
+                                            </div>
                                             <div className="productSelectionDiv">
                                                 <h3>Bundles</h3>
                                                 <div className='orderlistBox'>
@@ -650,7 +657,7 @@ function App() {
                                             <div className="productSelectionDiv">
                                                 <h3>Single Items</h3>
                                                 <div className='orderlistBox'>
-                                                    <div className='activeProductsBtn' onClick={()=> setActiveProducts("others")}>+</div>
+                                                    <div className='activeProductsBtn' onClick={()=> { window.scrollTo({ top: 0, behavior: 'smooth' }); setActiveProducts("others")}}>+</div>
                                                     {state.orderList.filter(order => order.type === "singleItem").map(order => {
                                                         return (
                                                             <div key={order.id} className="orderlistItem">
@@ -670,7 +677,7 @@ function App() {
                                                             <div key={order.id} className='orderListReview'> 
                                                                 <div className='orderListReviewDetails'>
                                                                     <div className='costPart'>
-                                                                        <select className='emailEndPoint rentalSelect' onChange={(e) => handleProductsQuantity(order, e)} value={order.quantity}>
+                                                                        <select className='emailEndPoint' onChange={(e) => handleProductsQuantity(order, e)} value={order.quantity}>
                                                                             <option value="1">1</option>
                                                                             <option value="2">2</option>
                                                                             <option value="3">3</option>
@@ -687,12 +694,11 @@ function App() {
                                                                     <p style={{fontWeight:'bold'}}>{order.cost} SEK</p>
                                                                 </div>
 
-
                                                                 {order.type === 'bundle' &&
                                                                     <div className='addOnsBox'>
                                                                         {addOns.map(addOn => {
                                                                             return (
-                                                                                <div className='addOn'>
+                                                                                <div key={addOn.id} className='addOn'>
                                                                                     <div className="costPart">
                                                                                         <input type="checkbox" id="checkbox" name="checkbox" checked={state.addOnsList.includes(addOn)} onChange={() => handleAddOn(addOn)}/>
                                                                                         <p>{addOn.name}</p>
@@ -782,7 +788,7 @@ function App() {
                                             <label htmlFor="deliveryDate">Preferred Delivery Date *</label>
                                             <input id="deliveryDate" className='emailEndPoint dateAndTimePick' type="date" name='deliveryDate' style={{width:"auto", minWidth: "auto", paddingRight:'0', fontWeight:'bold'}} onChange={handleChange} value={state.deliveryDate}/>
                                         </div>
-                                        <div className="input-wrapper">
+                                        <div className="input-wrapper" style={{marginBottom:'3px'}}>
                                             <label htmlFor="timePreference">Preferred Delivery Hour *</label>
                                             <select id="timePreference" className='emailEndPoint deliveryHourPick' name="timePreference" onChange={handleChange} value={state.timePreference} style={{ width: "auto"}}>
                                                 <option value="">--:--</option>
@@ -792,9 +798,10 @@ function App() {
                                                 <option value="Later than 17:00">After 17:00</option>
                                             </select>
                                         </div>
-                                        {state.deliveryCharge === 600 && 
+                                        {/* {state.deliveryCharge === 600 && 
                                             <p className='notice'>Delivery on weekends or late hours may incur additional charges.</p>
-                                        }
+                                        } */}
+                                        <p className='notice'>The standard delivery charge is 400 SEK. <br />Deliveries on weekends, special holidays, and after 17.00 will incur a special delivery charge of 600 SEK.</p>
                                         <div className="input-wrapper">
                                             <label htmlFor="anythingElse">Is there anything else you want us to know about your order?</label>
                                             <textarea id="anythingElse" type="text" name='anythingElse' onChange={handleChange} value={state.anythingElse}/>
@@ -849,7 +856,7 @@ function App() {
                                                             <h5>{order.cost} SEK</h5>
                                                         </div>
                                                         {order.description &&
-                                                            <p>{order.description}</p>
+                                                            <p style={{fontWeight:'normal'}}>{order.description}</p>
                                                         }
                                                         {(order.type === "bundle" && state.addOnsList.length > 0) && 
                                                             <div className='orderSummaryAddOnsPart'>
@@ -945,11 +952,15 @@ function App() {
                                     </div>
                                     <button className='btn newOrderBtn' onClick={()=> {setOrderMade(""); setState(initialState)}}>New Order</button>
                                 </div>
+                                <p style={{marginTop:'15px', fontSize:'15px'}}>If you did not receive an email, kindly check your spam folder or reach out to us through <a className='link' href="mailto:hello@cohabit.se">hello@cohabit.se</a></p>
                             </div>
                         </div>
                     }
             </div>
+            
       </div>
+            <p className='copyRight raleway-normal'>© 2024 Cohabit . All Rights Reserved - Developed by <a className='developer' href="https://mehmetkaantaspunar.se">Mehmet Kaan Taspunar</a></p>
+      <div className="backgroundCircle blueBackgroundBottom" />
     </div>
   );
 }
