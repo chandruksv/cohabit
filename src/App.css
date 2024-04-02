@@ -656,6 +656,7 @@ html {
 		height: 90%;
 		max-height: 95%;
 		box-shadow: none;
+		margin-bottom: 45px;
 	}
 	.logo {
 		width: 50%;
