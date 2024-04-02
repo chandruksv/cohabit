@@ -8,7 +8,7 @@ import Carousel from './Carousel';
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
-    const [orderMade, setOrderMade] = useState(false);
+    const [orderMade, setOrderMade] = useState(true);
 
     const [activeTitle, setActiveTitle] = useState("Customer Information");
 
@@ -953,7 +953,7 @@ function App() {
                                     </div>
                                     <button className='btn newOrderBtn' onClick={()=> {setOrderMade(""); setState(initialState)}}>New Order</button>
                                 </div>
-                                <p style={{marginTop:'15px', fontSize:'15px'}}>If you did not receive an email, kindly check your spam folder or reach out to us through <a className='link' href="mailto:hello@cohabit.se">hello@cohabit.se</a></p>
+                                <p className='attention'>If you did not receive an email, kindly check your spam folder or reach out to us through <a className='link' href="mailto:hello@cohabit.se">hello@cohabit.se</a></p>
                             </div>
                         </div>
                     }
