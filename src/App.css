@@ -387,6 +387,9 @@ html {
 .subTitle span {
 	cursor: pointer;
 }
+.subTitle:not(:first-child){
+	margin-top: 30px;
+}
 .summaryBox {
 	padding: 15px;
 	background-color: #a0ebf28a;

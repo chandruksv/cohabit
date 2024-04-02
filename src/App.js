@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
 // import {saveAs} from 'file-saver';
@@ -27,7 +27,7 @@ function App() {
             githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/email/Bundle.jpeg?raw=true',
         },
     ])
-    let [addOns, setAddOns] = useState([
+    let [addOns] = useState([
         {
             id: 101,
             name: "Add on 1",
@@ -220,7 +220,7 @@ function App() {
         'https://cohabit.se/wp-content/uploads/2023/07/6-300x300.png',
         'https://cohabit.se/wp-content/uploads/2023/07/Cohabit-Gallery-300x300.png',
 
-      ];
+    ];
 
     const handleChange = ({ target: { value, name } }) => {
         
@@ -862,7 +862,7 @@ function App() {
                                                             <div className='orderSummaryAddOnsPart'>
                                                                 {state.addOnsList.map(addOn => {
                                                                     return (
-                                                                        <div className='orderTitleAndCost'>
+                                                                        <div key={addOn.id} className='orderTitleAndCost'>
                                                                             <h5>{addOn.name}</h5>
                                                                             <h5>{addOn.cost} SEK</h5>
                                                                         </div>
@@ -874,6 +874,7 @@ function App() {
                                                 )
                                             })}
                                         </div>
+
                                         <h3 className='subTitle'>Costs</h3>
                                         <div className="summaryBox">
                                             <div className="summary-wrapper">
