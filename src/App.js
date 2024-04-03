@@ -8,7 +8,7 @@ import Carousel from './Carousel';
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
-    const [orderMade, setOrderMade] = useState(true);
+    const [orderMade, setOrderMade] = useState(false);
 
     const [activeTitle, setActiveTitle] = useState("Customer Information");
 
