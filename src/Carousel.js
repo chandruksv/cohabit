@@ -48,7 +48,9 @@ const Carousel = ({ images }) => {
     infinite: true,
     speed: 500,
     slidesToShow: slidesNumber,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000
   };
 
   return (
