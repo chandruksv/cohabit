@@ -278,9 +278,9 @@ function App() {
             setActiveProducts("notSelected");
             setResponse("");
 
-            axios.post('sendEmails', state)
+            axios.post('https://cohabit-backend-mehmet.onrender.com/sendEmails', state)
                 .then((res)=>{
-                    console.log(res);
+                    // console.log(res);
                 })
                 .catch((error) => {
                     // setResponse(error.response.data);
@@ -299,7 +299,6 @@ function App() {
         }else{
             setResponse("Fill all the required areas please!");
         }
-
     }
 
 //   const createAndDownloadPdf = () => {
@@ -960,7 +959,7 @@ function App() {
             </div>
             
       </div>
-            <p className='copyRight raleway-normal'>© 2024 Cohabit . All Rights Reserved - Developed by <a className='developer' href="https://mehmetkaantaspunar.se">Mehmet Kaan Taspunar</a></p>
+            <p className='copyRight raleway-normal'>© 2024 Cohabit . All Rights Reserved - Developed by <a className='developer' href="https://mehmetkaantaspunar.se" rel='noreferrer' target='_blank'>Mehmet Kaan Taspunar</a></p>
       <div className="backgroundCircle blueBackgroundBottom" />
     </div>
   );
