@@ -390,7 +390,15 @@ function App() {
         let newOrderlist = state.orderList;
 
         if(!newOrderlist.includes(product)){
-            newOrderlist.push(product);
+
+            if(product.type === "bundle"){
+                setActiveProducts("notSelected");
+                newOrderlist.unshift(product);
+            }
+            else{
+                newOrderlist.push(product);
+            }
+            
             let currentPrice = parseFloat(state.total);
             currentPrice += (product.cost * product.quantity);
 
@@ -399,11 +407,7 @@ function App() {
                 orderList: newOrderlist,
                 total: currentPrice,
                 totalCost:currentPrice+state.deliveryCharge,
-            }));
-
-            if(product.type === "bundle"){
-                setActiveProducts("notSelected");
-            }
+            }));          
         }
     }
 
