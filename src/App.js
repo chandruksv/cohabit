@@ -599,6 +599,23 @@ function App() {
         let currentPrice = parseFloat(state.total);
 
         if(!newAddOnList.includes(addOn)){
+
+            if(addOn.id === 101 || addOn.id === 102 || addOn.id === 103 || addOn.id === 104){
+                let updatedStats = uncheckedOtherAddOns([101,102,103,104]);
+                newAddOnList = updatedStats.addonlist;
+                currentPrice -= updatedStats.priceToReduce;
+            }
+            else if(addOn.id === 105 || addOn.id === 106){
+                let updatedStats = uncheckedOtherAddOns([105,106]);
+                newAddOnList = updatedStats.addonlist;
+                currentPrice -= updatedStats.priceToReduce;
+
+            }else if(addOn.id === 110 || addOn.id === 111){
+                let updatedStats = uncheckedOtherAddOns([110,111]);
+                newAddOnList = updatedStats.addonlist;
+                currentPrice -= updatedStats.priceToReduce;
+            }
+
             newAddOnList.push(addOn);
             currentPrice += addOn.cost;
         }else{
@@ -612,6 +629,18 @@ function App() {
             total: currentPrice,
             totalCost:currentPrice+state.deliveryCharge,
         }));
+    }
+
+    const uncheckedOtherAddOns = (ids) => {
+        let addonlist = state.addOnsList.filter(item => !ids.includes(item.id));
+        let itemsToReduce = state.addOnsList.filter(item => ids.includes(item.id));
+        let priceToReduce = 0;
+
+        if(itemsToReduce.length > 0 && itemsToReduce[0] !== undefined){
+            priceToReduce = itemsToReduce[0].cost;
+        }
+
+        return {addonlist,priceToReduce};
     }
 
   return (
@@ -649,10 +678,6 @@ function App() {
                                                 value={state.phonenumber}
                                                 />
                                         </div>
-                                        {/* <div className="input-wrapper" style={{ justifyContent:"center", background: 'none' }}>
-                                            <input type="checkbox" id="wpnumber" name="wpnumber" onChange={handleCheckBoxChange} checked={state.wpnumber} style={{ width:"auto", minWidth:"auto" }}/>
-                                            <label htmlFor="wpnumber" style={{ fontWeight: 'normal', margin: 0, marginLeft:"10px", width:"unset", color:'black'}}>This is also the whatsapp number that Cohabit team can reach me on</label>
-                                        </div> */}
                                         <div className="input-wrapper">
                                             <label htmlFor="emailWithoutDomain">Email *</label>
                                             
@@ -713,7 +738,6 @@ function App() {
                                                 <option value="Above 18 Months">Above 18 Months</option>
                                             </select>
                                         </div>
-                                    
                                     </div>
                                     <div className="navigateBtns">
                                         <button className="btn backBtn" style={{opacity:0, pointerEvents:"none"}} disabled onClick={()=> setCurrentSection("customerInfo")}>Back</button>
@@ -912,6 +936,89 @@ function App() {
 
                                 currentSection === "furtherInfo" ?
                                 <>
+                                 <div className="inputsBox">
+                                        <div className="input-wrapper">
+                                            <label htmlFor="name">Name *</label>
+                                            <input id="name" type="text" name='name' onChange={handleChange} value={state.name}/>
+                                        </div>
+                                        <div className="input-wrapper">
+                                            <label htmlFor="phonenumber">Phone Number *</label>
+                                            <input 
+                                                id="phonenumber" 
+                                                type="text" 
+                                                onKeyPress={(e) => {
+                                                    if (!(e.charCode >= 48 && e.charCode <= 57)) {
+                                                    e.preventDefault();
+                                                    }
+                                                }}
+                                                onPaste={(e) => e.preventDefault()} 
+                                                onDrop={(e) => e.preventDefault()} 
+                                                name="phonenumber" 
+                                                onChange={handleChange} 
+                                                value={state.phonenumber}
+                                                />
+                                        </div>
+                                        <div className="input-wrapper">
+                                            <label htmlFor="emailWithoutDomain">Email *</label>
+                                            
+                                            <div className='emailInputBox'>
+                                                <input id="emailWithoutDomain" type="text" name='emailWithoutDomain' placeholder='example' style={{minWidth: 'unset', width: '55%'}} 
+                                                    onChange={(e)=> {
+                                                        const value = e.target.value;
+                                                        setState(prevState => ({
+                                                            ...prevState,
+                                                            emailWithoutDomain: value,
+                                                            email: `${value}${state.domain}`
+                                                        }));
+                                                    }}
+                                                    value={state.emailWithoutDomain}/>
+                                                <select
+                                                    className='emailEndPoint'
+                                                    name="domain"
+                                                    defaultValue="@hotmail.com" 
+                                                    onChange={(e) => {
+                                                        const domain = e.target.value;
+                                                        setState(prevState => ({
+                                                            ...prevState,
+                                                            domain:domain,
+                                                            email: `${state.emailWithoutDomain}${domain}`
+                                                        }));
+                                                    }}
+                                                >
+                                                    <option value="@hotmail.com">@hotmail.com</option>
+                                                    <option value="@gmail.com">@gmail.com</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="input-wrapper">
+                                            <label htmlFor="address">Address *</label>
+                                            <input id="address" type="text" placeholder='' name='address' onChange={handleChange} value={state.address}/>
+                                        </div>
+                                        <div className="input-wrapper">
+                                            <label style={{lineHeight:'1.5', width:'70%'}} htmlFor="period">How long do you want to rent the furniture? *</label>
+                                            <select id="period" className='emailEndPoint rentalSelect' name="period" onChange={handleChange} value={state.period} style={{ width: "90px" }}>
+                                                <option value="">- Months</option>
+                                                <option value="Below 3 Months">Below 3 Months</option>
+                                                <option value="3 Months">3 Months</option>
+                                                <option value="4 Months">4 Months</option>
+                                                <option value="5 Months">5 Months</option>
+                                                <option value="6 Months">6 Months</option>
+                                                <option value="7 Months">7 Months</option>
+                                                <option value="8 Months">8 Months</option>
+                                                <option value="9 Months">9 Months</option>
+                                                <option value="10 Months">10 Months</option>
+                                                <option value="11 Months">11 Months</option>
+                                                <option value="12 Months">12 Months</option>
+                                                <option value="13 Months">13 Months</option>
+                                                <option value="14 Months">14 Months</option>
+                                                <option value="15 Months">15 Months</option>
+                                                <option value="16 Months">16 Months</option>
+                                                <option value="17 Months">17 Months</option>
+                                                <option value="18 Months">18 Months</option>
+                                                <option value="Above 18 Months">Above 18 Months</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div className="inputsBox">
                                         <div className="input-wrapper">
                                             <label htmlFor="deliveryDate">Preferred Delivery Date *</label>
@@ -927,18 +1034,12 @@ function App() {
                                                 <option value="Later than 17:00">After 17:00</option>
                                             </select>
                                         </div>
-                                        {/* {state.deliveryCharge === 600 && 
-                                            <p className='notice'>Delivery on weekends or late hours may incur additional charges.</p>
-                                        } */}
+                                      
                                         <p className='notice'>The standard delivery charge is 400 SEK. <br />Deliveries on weekends, special holidays, and after 17.00 will incur a special delivery charge of 600 SEK.</p>
                                         <div className="input-wrapper">
                                             <label htmlFor="anythingElse">Is there anything else you want us to know about your order?</label>
                                             <textarea id="anythingElse" type="text" name='anythingElse' onChange={handleChange} value={state.anythingElse}/>
                                         </div>
-                                        {/* <div className="input-wrapper" style={{ justifyContent:"center", flexDirection:'row'}}>
-                                            <input type="checkbox" id="userConsent" name="userConsent" onChange={handleCheckBoxChange} checked={state.userConsent} style={{ width:"auto", minWidth:"auto", marginLeft:'15px' }}/>
-                                            <label htmlFor="userConsent" className='userContentLabel' style={{ width:"unset"}}>I agree that the gathered information can be used for further communication with Cohabit *</label>
-                                        </div> */}
                                     </div>
                                     <div className="navigateBtns">
                                         <button className="btn backBtn" onClick={()=> {setCurrentSection("products"); setActiveTitle("Products")}}>Back</button>
@@ -1070,7 +1171,7 @@ function App() {
                                 <h2>{state.name}!</h2>
 
                                 <p>Cohabit has received your order, and you will receive a confirmation email shortly. 
-                                    If you have further questions, contact us at <a className='link' href="mailto:hello@cohabit.se">hello@cohabit.se</a> or WhatsApp <a className='link' href="tel:+46709526846">+46 709 52 68 46</a>.</p>
+                                    If you have further questions, contact us at <a className='link' href="mailto:hello@cohabit.se">hello@cohabit.se</a>, WhatsApp <a className='link' href="tel:+46709526846">+46 709 52 68 46</a> or book a call with us <a className='link' rel={"noreferrer"} target='_blank' href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2cEEdCFOzTPUR_eIxwtrtMJ-CiFl_XHn6mexmLRyY6gwwqd1IoKt6xiAO1ljzynh763vT1fCq4">here</a>.</p>
                                 
                                 <div className='portraitBox'>
                                     <img className='portrait' loading='lazy' src={require("./assets/portrait.jpg")} alt='cohabitTeamPortrait'/>
