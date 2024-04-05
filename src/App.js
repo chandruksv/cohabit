@@ -30,9 +30,9 @@ function App() {
     let [addOns] = useState([
         {
             id: 101,
-            name: "Add on 1",
+            name: "Upgrade to large single bed",
             imageUrl: "Bundle.jpeg",
-            description:"Simple add on.",
+            description:"Make the upgrade on the studio bundle by choosing a larger single bed",
             cost: 50,
             type:'bundle',
             quantity:1,
@@ -40,13 +40,103 @@ function App() {
         },
         {
             id: 102,
-            name: "Add on 2",
-            imageUrl: "Bundle.jpeg",
-            description:"Simple add on.",
+            name: "Upgrade to small double bed",
+            imageUrl: "small_double_bed.jpg",
+            description:"Make the upgrade on the studio bundle by choosing a small double bed (140x200)",
+            cost: 150,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/small_double_bed.jpg?raw=true'
+        },
+        {
+            id: 103,
+            name: "Upgrade to Standard double bed",
+            imageUrl: "double_bed.jpg",
+            description:"Make the upgrade on the studio bundle by choosing a standard double bed (160x200)",
+            cost: 150,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.jpg?raw=true'
+        },
+        {
+            id: 104,
+            name: "Upgrade to Premium or Large double bed",
+            imageUrl: "double_bed.jpeg",
+            description:"Make the upgrade on the studio bundle by choosing a premium or large double bed (180x200)",
+            cost: 200,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.jpg?raw=true'
+        },
+        {
+            id: 105,
+            name: "Upgrade to Two chairs",
+            imageUrl: "chair.jpg",
+            description:"Make the upgrade on the studio bundle by choosing two chairs",
+            cost: 50,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.jpg?raw=true'
+        },
+        {
+            id: 106,
+            name: "Upgrade to 4 chairs",
+            imageUrl: "chair.jpg",
+            description:"Make the upgrade on the studio bundle by choosing four chairs",
             cost: 100,
             type:'bundle',
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/email/Bundle.jpeg?raw=true',
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
+        },
+        {
+            id: 107,
+            name: "Upgrade to larger dining table",
+            imageUrl: "large_table.jpg",
+            description:"Make the upgrade on the studio bundle to a large dining table",
+            cost: 100,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
+        },
+        {
+            id: 108,
+            name: "Add on: Storage / Shelves",
+            imageUrl: "storage_medium.jpg",
+            description:"Add additional storage to your studio bundle",
+            cost: 100,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_medium.jpg?raw=true',
+        },
+        {
+            id: 109,
+            name: "Add on: Rug",
+            imageUrl: "large_table.jpg",
+            description:"Add an additional rug to your studio bundle",
+            cost: 100,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
+        },
+        {
+            id: 110,
+            name: "Add on: 2 Seater Sofa",
+            imageUrl: "large_table.jpg",
+            description:"Add an additional Sofa (two seater) to your studio bundle",
+            cost: 150,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
+        },
+        {
+            id: 111,
+            name: "Add on: 3 Seater Sofa",
+            imageUrl: "large_table.jpg",
+            description:"Add an additional Sofa (Three seater) to your studio bundle",
+            cost: 200,
+            type:'bundle',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
         },
     ])
     const [products, setProducts] = useState([
@@ -526,12 +616,10 @@ function App() {
 
   return (
     <div className="App">
-            <div className="backgroundCircle blueBackgroundTop" />
-      <div className="content">    
-            
+        <div className="backgroundCircle blueBackgroundTop" />
+        <div className="content">    
             <div className="ordermade">
                     {!orderMade ?
-
                         <div className='ordermakingBox'>
                             <img className='logo' loading='lazy' src={require("./assets/COHABIT-horizontal.png")} alt='cohabitLogo'/>
                             <div className="container">
@@ -643,35 +731,73 @@ function App() {
                                             <div className="productSelectionDiv carouselBox">
                                                 <Carousel images={images} />
                                             </div>
-                                            <div className="productSelectionDiv">
-                                                <h3>Bundles</h3>
-                                                <div className='orderlistBox'>
-                                                    <div className='activeProductsBtn' onClick={()=> setActiveProducts("bundles")}>+</div>
-                                                    {state.orderList.filter(order => order.type === "bundle").map(order => {
-                                                        return (
-                                                            <div key={order.id} className="orderlistItem">
-                                                                <img className='orderImg' src={require(`./assets/email/${order.imageUrl}`)} alt={order.name} />
-                                                                <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
-                                                            </div>
-                                                        )
-                                                    })}
+                                            {state.orderList.length !== 0 ?
+                                            <>
+                                                {state.orderList.filter(order => order.type === "bundle").length !== 0 ? 
+                                                    <div className="productSelectionDiv">
+                                                        <h3>Bundles</h3>
+                                                        <div className='orderlistBox'>
+                                                            <div className='activeProductsBtn' onClick={()=> setActiveProducts("bundles")}>+</div>
+                                                            {state.orderList.filter(order => order.type === "bundle").map(order => {
+                                                                return (
+                                                                    <div key={order.id} className="orderlistItem">
+                                                                        <img className='orderImg' src={require(`./assets/email/${order.imageUrl}`)} alt={order.name} />
+                                                                        <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                :
+                                                    <div className="productSelectionDiv">
+                                                        <h3>Single Items</h3>
+                                                        <div className='orderlistBox'>
+                                                            <div className='activeProductsBtn' onClick={()=> { window.scrollTo({ top: 0, behavior: 'smooth' }); setActiveProducts("others")}}>+</div>
+                                                            {state.orderList.filter(order => order.type === "singleItem").map(order => {
+                                                                return (
+                                                                    <div key={order.id} className="orderlistItem">
+                                                                        <img className='orderImg' src={require(`./assets/furnitures/${order.imageUrl}`)} alt={order.name} />
+                                                                        <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </>
+                                            :
+                                            <>
+                                                <div className="productSelectionDiv">
+                                                    <h3>Bundles</h3>
+                                                    <div className='orderlistBox'>
+                                                        <div className='activeProductsBtn' onClick={()=> setActiveProducts("bundles")}>+</div>
+                                                        {state.orderList.filter(order => order.type === "bundle").map(order => {
+                                                            return (
+                                                                <div key={order.id} className="orderlistItem">
+                                                                    <img className='orderImg' src={require(`./assets/email/${order.imageUrl}`)} alt={order.name} />
+                                                                    <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                </div>    
+                                                <div className="productSelectionDiv">
+                                                    <h3>Single Items</h3>
+                                                    <div className='orderlistBox'>
+                                                        <div className='activeProductsBtn' onClick={()=> { window.scrollTo({ top: 0, behavior: 'smooth' }); setActiveProducts("others")}}>+</div>
+                                                        {state.orderList.filter(order => order.type === "singleItem").map(order => {
+                                                            return (
+                                                                <div key={order.id} className="orderlistItem">
+                                                                    <img className='orderImg' src={require(`./assets/furnitures/${order.imageUrl}`)} alt={order.name} />
+                                                                    <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="productSelectionDiv">
-                                                <h3>Single Items</h3>
-                                                <div className='orderlistBox'>
-                                                    <div className='activeProductsBtn' onClick={()=> { window.scrollTo({ top: 0, behavior: 'smooth' }); setActiveProducts("others")}}>+</div>
-                                                    {state.orderList.filter(order => order.type === "singleItem").map(order => {
-                                                        return (
-                                                            <div key={order.id} className="orderlistItem">
-                                                                <img className='orderImg' src={require(`./assets/furnitures/${order.imageUrl}`)} alt={order.name} />
-                                                                <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
-                                                            </div>
-                                                        )
-                                                    })}
-                                                </div>
-                                            </div>
-
+                                            </>
+                                            }
+                                          
                                             {state.orderList.length > 0 && 
                                                 <div className="productSelectionDiv orderListReviewBox">
                                                     <h3 style={{marginBottom:'0'}}>Order list</h3>
@@ -960,11 +1086,10 @@ function App() {
                             </div>
                         </div>
                     }
-            </div>
-            
-      </div>
-            <p className='copyRight raleway-normal'>© 2024 Cohabit . All Rights Reserved - Developed by <a className='developer' href="https://mehmetkaantaspunar.se" rel='noreferrer' target='_blank'>Mehmet Kaan Taspunar</a></p>
-      <div className="backgroundCircle blueBackgroundBottom" />
+            </div>   
+        </div>
+        <p className='copyRight raleway-normal'>© 2024 Cohabit . All Rights Reserved - Developed by <a className='developer' href="https://mehmetkaantaspunar.se" rel='noreferrer' target='_blank'>Mehmet Kaan Taspunar</a></p>
+        <div className="backgroundCircle blueBackgroundBottom" />
     </div>
   );
 }
