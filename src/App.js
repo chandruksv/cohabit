@@ -10,9 +10,9 @@ function App() {
     const [response, setResponse] = useState("");
     const [orderMade, setOrderMade] = useState(false);
 
-    const [activeTitle, setActiveTitle] = useState("Customer Information");
+    const [activeTitle, setActiveTitle] = useState("Products");
 
-    const [currentSection, setCurrentSection] = useState("customerInfo");
+    const [currentSection, setCurrentSection] = useState("products");
     const [activeProducts, setActiveProducts] = useState("notSelected");
 
     let [bundles, setBundles] = useState([
@@ -435,23 +435,23 @@ function App() {
 //   }
 
     const checkInputs = (field) => {
+        // case 'customerInfo':
+        //     if (state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.phonenumber !== 0 && state.period !== "") {
+        //         setCurrentSection("products");
+        //         setActiveTitle("Products");
+        //     }else{
+        //         setResponse("Please fill all the required fields!");
+        //         setTimeout(() => {
+        //             setResponse("");
+        //         }, 3000);
+        //     }
+        //     break;
 
         switch(field){
-            case 'customerInfo':
-                if (state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.phonenumber !== 0 && state.period !== "") {
-                    setCurrentSection("products");
-                    setActiveTitle("Products");
-                }else{
-                    setResponse("Please fill all the required fields!");
-                    setTimeout(() => {
-                        setResponse("");
-                    }, 3000);
-                }
-                break;
             case 'products':
                 if (state.total > 0) {
-                    setCurrentSection("furtherInfo");
-                    setActiveTitle("Further Information");
+                    setCurrentSection("customerInfo");
+                    setActiveTitle("Customer Information");
                 }else{
                     setResponse("Please pick the furniture you want!");
                     setTimeout(() => {
@@ -459,8 +459,8 @@ function App() {
                     }, 3000);
                 }
                 break;
-            case 'furtherInfo':
-                if (state.deliveryDate !== "" && state.timePreference !== "") {
+            case 'customerInfo':
+                if (state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.phonenumber !== 0 && state.period !== "" && state.deliveryDate !== "" && state.timePreference !== "") {
                     setCurrentSection("summary");
                     setActiveTitle("Order Summary");
                 }else{
@@ -654,98 +654,6 @@ function App() {
                             <div className="container">
                                 <h2 className='title'>{activeTitle}</h2>
                                 {
-                                currentSection === "customerInfo" ? 
-                                <>
-                                    <div className="inputsBox">
-                                        <div className="input-wrapper">
-                                            <label htmlFor="name">Name *</label>
-                                            <input id="name" type="text" name='name' onChange={handleChange} value={state.name}/>
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <label htmlFor="phonenumber">Phone Number *</label>
-                                            <input 
-                                                id="phonenumber" 
-                                                type="text" 
-                                                onKeyPress={(e) => {
-                                                    if (!(e.charCode >= 48 && e.charCode <= 57)) {
-                                                    e.preventDefault();
-                                                    }
-                                                }}
-                                                onPaste={(e) => e.preventDefault()} 
-                                                onDrop={(e) => e.preventDefault()} 
-                                                name="phonenumber" 
-                                                onChange={handleChange} 
-                                                value={state.phonenumber}
-                                                />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <label htmlFor="emailWithoutDomain">Email *</label>
-                                            
-                                            <div className='emailInputBox'>
-                                                <input id="emailWithoutDomain" type="text" name='emailWithoutDomain' placeholder='example' style={{minWidth: 'unset', width: '55%'}} 
-                                                    onChange={(e)=> {
-                                                        const value = e.target.value;
-                                                        setState(prevState => ({
-                                                            ...prevState,
-                                                            emailWithoutDomain: value,
-                                                            email: `${value}${state.domain}`
-                                                        }));
-                                                    }}
-                                                    value={state.emailWithoutDomain}/>
-                                                <select
-                                                    className='emailEndPoint'
-                                                    name="domain"
-                                                    defaultValue="@hotmail.com" 
-                                                    onChange={(e) => {
-                                                        const domain = e.target.value;
-                                                        setState(prevState => ({
-                                                            ...prevState,
-                                                            domain:domain,
-                                                            email: `${state.emailWithoutDomain}${domain}`
-                                                        }));
-                                                    }}
-                                                >
-                                                    <option value="@hotmail.com">@hotmail.com</option>
-                                                    <option value="@gmail.com">@gmail.com</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <label htmlFor="address">Address *</label>
-                                            <input id="address" type="text" placeholder='' name='address' onChange={handleChange} value={state.address}/>
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <label style={{lineHeight:'1.5', width:'70%'}} htmlFor="period">How long do you want to rent the furniture? *</label>
-                                            <select id="period" className='emailEndPoint rentalSelect' name="period" onChange={handleChange} value={state.period} style={{ width: "90px" }}>
-                                                <option value="">- Months</option>
-                                                <option value="Below 3 Months">Below 3 Months</option>
-                                                <option value="3 Months">3 Months</option>
-                                                <option value="4 Months">4 Months</option>
-                                                <option value="5 Months">5 Months</option>
-                                                <option value="6 Months">6 Months</option>
-                                                <option value="7 Months">7 Months</option>
-                                                <option value="8 Months">8 Months</option>
-                                                <option value="9 Months">9 Months</option>
-                                                <option value="10 Months">10 Months</option>
-                                                <option value="11 Months">11 Months</option>
-                                                <option value="12 Months">12 Months</option>
-                                                <option value="13 Months">13 Months</option>
-                                                <option value="14 Months">14 Months</option>
-                                                <option value="15 Months">15 Months</option>
-                                                <option value="16 Months">16 Months</option>
-                                                <option value="17 Months">17 Months</option>
-                                                <option value="18 Months">18 Months</option>
-                                                <option value="Above 18 Months">Above 18 Months</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="navigateBtns">
-                                        <button className="btn backBtn" style={{opacity:0, pointerEvents:"none"}} disabled onClick={()=> setCurrentSection("customerInfo")}>Back</button>
-                                        <button className="btn nextBtn" onClick={()=> checkInputs("customerInfo")}>Next</button>
-                                    </div>
-                                </>
-                                :
-
                                 currentSection === "products" ?
                                 <>
                                     <p className='raleway-normal' style={{marginTop: '0', fontSize: '16px'}}>The images that you see are indicative of the type of product offered.</p>
@@ -928,21 +836,21 @@ function App() {
                                     </div>
 
                                     <div className="navigateBtns">
-                                        <button className="btn backBtn" onClick={()=> {setCurrentSection("customerInfo"); setActiveTitle("Customer Information")}}>Back</button>
+                                        <button className="btn backBtn" style={{opacity:0, pointerEvents:"none"}} disabled onClick={()=> {setCurrentSection("customerInfo"); setActiveTitle("Customer Information")}}>Back</button>
                                         <button className="btn nextBtn" onClick={()=> checkInputs("products")}>Next</button>
                                     </div>
                                 </>
                                 :
 
-                                currentSection === "furtherInfo" ?
+                                currentSection === "customerInfo" ?
                                 <>
                                  <div className="inputsBox">
                                         <div className="input-wrapper">
-                                            <label htmlFor="name">Name *</label>
+                                            <label htmlFor="name">Full Name <span style={{color:'red'}}>*</span></label>
                                             <input id="name" type="text" name='name' onChange={handleChange} value={state.name}/>
                                         </div>
                                         <div className="input-wrapper">
-                                            <label htmlFor="phonenumber">Phone Number *</label>
+                                            <label htmlFor="phonenumber">Phone Number <span style={{color:'red'}}>*</span></label>
                                             <input 
                                                 id="phonenumber" 
                                                 type="text" 
@@ -959,7 +867,7 @@ function App() {
                                                 />
                                         </div>
                                         <div className="input-wrapper">
-                                            <label htmlFor="emailWithoutDomain">Email *</label>
+                                            <label htmlFor="emailWithoutDomain">Email <span style={{color:'red'}}>*</span></label>
                                             
                                             <div className='emailInputBox'>
                                                 <input id="emailWithoutDomain" type="text" name='emailWithoutDomain' placeholder='example' style={{minWidth: 'unset', width: '55%'}} 
@@ -991,11 +899,11 @@ function App() {
                                             </div>
                                         </div>
                                         <div className="input-wrapper">
-                                            <label htmlFor="address">Address *</label>
-                                            <input id="address" type="text" placeholder='' name='address' onChange={handleChange} value={state.address}/>
+                                            <label htmlFor="address">Address <span style={{color:'red'}}>*</span></label>
+                                            <input id="address" type="text" name='address' onChange={handleChange} value={state.address}/>
                                         </div>
                                         <div className="input-wrapper">
-                                            <label style={{lineHeight:'1.5', width:'70%'}} htmlFor="period">How long do you want to rent the furniture? *</label>
+                                            <label style={{lineHeight:'1.5', width:'70%'}} htmlFor="period">How long do you want to rent the furniture? <span style={{color:'red'}}>*</span></label>
                                             <select id="period" className='emailEndPoint rentalSelect' name="period" onChange={handleChange} value={state.period} style={{ width: "90px" }}>
                                                 <option value="">- Months</option>
                                                 <option value="Below 3 Months">Below 3 Months</option>
@@ -1021,11 +929,11 @@ function App() {
                                     </div>
                                     <div className="inputsBox">
                                         <div className="input-wrapper">
-                                            <label htmlFor="deliveryDate">Preferred Delivery Date *</label>
-                                            <input id="deliveryDate" className='emailEndPoint dateAndTimePick' type="date" name='deliveryDate' style={{width:"auto", minWidth: "auto", paddingRight:'0', fontWeight:'bold'}} onChange={handleChange} value={state.deliveryDate}/>
+                                            <label htmlFor="deliveryDate">Preferred Delivery Date <span style={{color:'red'}}>*</span></label>
+                                            <input id="deliveryDate" className='emailEndPoint dateAndTimePick' type="date" name='deliveryDate' style={{width:"auto", minWidth: "auto", paddingRight:'0', fontWeight:'bold', borderBottom:'1px solid'}} onChange={handleChange} value={state.deliveryDate}/>
                                         </div>
                                         <div className="input-wrapper" style={{marginBottom:'3px'}}>
-                                            <label htmlFor="timePreference">Preferred Delivery Hour *</label>
+                                            <label htmlFor="timePreference">Preferred Delivery Hour <span style={{color:'red'}}>*</span></label>
                                             <select id="timePreference" className='emailEndPoint deliveryHourPick' name="timePreference" onChange={handleChange} value={state.timePreference} style={{ width: "auto"}}>
                                                 <option value="">--:--</option>
                                                 <option value="09:00-12:00">09:00-12:00</option>
@@ -1034,8 +942,11 @@ function App() {
                                                 <option value="Later than 17:00">After 17:00</option>
                                             </select>
                                         </div>
-                                      
-                                        <p className='notice'>The standard delivery charge is 400 SEK. <br />Deliveries on weekends, special holidays, and after 17.00 will incur a special delivery charge of 600 SEK.</p>
+                                                    
+                                        <div className='notice'>
+                                           <p className='deliveryInfoP' style={{marginBottom:'0px'}}>The standard delivery charge is 400 SEK.</p>
+                                           <p className='deliveryInfoP' style={{marginTop:'5px'}}>Deliveries on weekends, special holidays, and after 17.00 will incur a special delivery charge of 600 SEK.</p>
+                                        </div>
                                         <div className="input-wrapper">
                                             <label htmlFor="anythingElse">Is there anything else you want us to know about your order?</label>
                                             <textarea id="anythingElse" type="text" name='anythingElse' onChange={handleChange} value={state.anythingElse}/>
@@ -1043,7 +954,7 @@ function App() {
                                     </div>
                                     <div className="navigateBtns">
                                         <button className="btn backBtn" onClick={()=> {setCurrentSection("products"); setActiveTitle("Products")}}>Back</button>
-                                        <button className="btn nextBtn" onClick={()=> checkInputs("furtherInfo")}>Next</button>
+                                        <button className="btn nextBtn" onClick={()=> checkInputs("customerInfo")}>Next</button>
                                     </div>
                                 </>
                                 :
@@ -1051,31 +962,6 @@ function App() {
                                 currentSection === "summary" ?
                                 <>
                                     <div className="summaryBoxes">      
-                                        <h3 className='subTitle'>Customer Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("customerInfo")}}>&#x270E;</span></h3>
-                                        <div className="summaryBox">
-                                            <div className="summary-wrapper">
-                                                <p>Name</p>
-                                                <p>{state.name}</p>
-                                            </div>
-                                            <div className="summary-wrapper">
-                                                <p>Phone Number</p>
-                                                <p>{state.phonenumber}</p>
-                                            </div>
-                                            <div className="summary-wrapper">
-                                                <p>Email</p>
-                                                <p>{state.email}</p>
-                                            </div>
-                                            <div className="summary-wrapper">
-                                                <p>Rental Period</p>
-                                                <p>{state.period}</p>
-                                            </div>
-                                            <div className="summary-wrapper">
-                                                <p>Address</p>
-                                                <p>{state.address}</p>
-                                            </div>
-                                    
-                                        </div>
-
                                         <h3 className='subTitle'>Order Details <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("products")}}>&#x270E;</span></h3>
                                         <div className="summaryBox">
                                             {state.orderList.map(order=>{
@@ -1121,8 +1007,28 @@ function App() {
                                             </div>
                                         </div>
 
-                                        <h3 className='subTitle'>Further Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("furtherInfo")}}>&#x270E;</span></h3>
+                                        <h3 className='subTitle'>Customer Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("customerInfo")}}>&#x270E;</span></h3>
                                         <div className="summaryBox">
+                                            <div className="summary-wrapper">
+                                                <p>Name</p>
+                                                <p>{state.name}</p>
+                                            </div>
+                                            <div className="summary-wrapper">
+                                                <p>Phone Number</p>
+                                                <p>{state.phonenumber}</p>
+                                            </div>
+                                            <div className="summary-wrapper">
+                                                <p>Email</p>
+                                                <p>{state.email}</p>
+                                            </div>
+                                            <div className="summary-wrapper">
+                                                <p>Rental Period</p>
+                                                <p>{state.period}</p>
+                                            </div>
+                                            <div className="summary-wrapper">
+                                                <p>Address</p>
+                                                <p>{state.address}</p>
+                                            </div>
                                             <div className="summary-wrapper">
                                                 <p>Preferred Delivery Date</p>
                                                 <p>{state.deliveryDate}</p>
@@ -1196,3 +1102,98 @@ function App() {
 }
 
 export default App;
+
+
+
+
+// currentSection === "customerInfo" ? 
+// <>
+//     <div className="inputsBox">
+//         <div className="input-wrapper">
+//             <label htmlFor="name">Name *</label>
+//             <input id="name" type="text" name='name' onChange={handleChange} value={state.name}/>
+//         </div>
+//         <div className="input-wrapper">
+//             <label htmlFor="phonenumber">Phone Number *</label>
+//             <input 
+//                 id="phonenumber" 
+//                 type="text" 
+//                 onKeyPress={(e) => {
+//                     if (!(e.charCode >= 48 && e.charCode <= 57)) {
+//                     e.preventDefault();
+//                     }
+//                 }}
+//                 onPaste={(e) => e.preventDefault()} 
+//                 onDrop={(e) => e.preventDefault()} 
+//                 name="phonenumber" 
+//                 onChange={handleChange} 
+//                 value={state.phonenumber}
+//                 />
+//         </div>
+//         <div className="input-wrapper">
+//             <label htmlFor="emailWithoutDomain">Email *</label>
+            
+//             <div className='emailInputBox'>
+//                 <input id="emailWithoutDomain" type="text" name='emailWithoutDomain' placeholder='example' style={{minWidth: 'unset', width: '55%'}} 
+//                     onChange={(e)=> {
+//                         const value = e.target.value;
+//                         setState(prevState => ({
+//                             ...prevState,
+//                             emailWithoutDomain: value,
+//                             email: `${value}${state.domain}`
+//                         }));
+//                     }}
+//                     value={state.emailWithoutDomain}/>
+//                 <select
+//                     className='emailEndPoint'
+//                     name="domain"
+//                     defaultValue="@hotmail.com" 
+//                     onChange={(e) => {
+//                         const domain = e.target.value;
+//                         setState(prevState => ({
+//                             ...prevState,
+//                             domain:domain,
+//                             email: `${state.emailWithoutDomain}${domain}`
+//                         }));
+//                     }}
+//                 >
+//                     <option value="@hotmail.com">@hotmail.com</option>
+//                     <option value="@gmail.com">@gmail.com</option>
+//                 </select>
+//             </div>
+//         </div>
+//         <div className="input-wrapper">
+//             <label htmlFor="address">Address *</label>
+//             <input id="address" type="text" placeholder='' name='address' onChange={handleChange} value={state.address}/>
+//         </div>
+//         <div className="input-wrapper">
+//             <label style={{lineHeight:'1.5', width:'70%'}} htmlFor="period">How long do you want to rent the furniture? *</label>
+//             <select id="period" className='emailEndPoint rentalSelect' name="period" onChange={handleChange} value={state.period} style={{ width: "90px" }}>
+//                 <option value="">- Months</option>
+//                 <option value="Below 3 Months">Below 3 Months</option>
+//                 <option value="3 Months">3 Months</option>
+//                 <option value="4 Months">4 Months</option>
+//                 <option value="5 Months">5 Months</option>
+//                 <option value="6 Months">6 Months</option>
+//                 <option value="7 Months">7 Months</option>
+//                 <option value="8 Months">8 Months</option>
+//                 <option value="9 Months">9 Months</option>
+//                 <option value="10 Months">10 Months</option>
+//                 <option value="11 Months">11 Months</option>
+//                 <option value="12 Months">12 Months</option>
+//                 <option value="13 Months">13 Months</option>
+//                 <option value="14 Months">14 Months</option>
+//                 <option value="15 Months">15 Months</option>
+//                 <option value="16 Months">16 Months</option>
+//                 <option value="17 Months">17 Months</option>
+//                 <option value="18 Months">18 Months</option>
+//                 <option value="Above 18 Months">Above 18 Months</option>
+//             </select>
+//         </div>
+//     </div>
+//     <div className="navigateBtns">
+//         <button className="btn backBtn" style={{opacity:0, pointerEvents:"none"}} disabled onClick={()=> setCurrentSection("customerInfo")}>Back</button>
+//         <button className="btn nextBtn" onClick={()=> checkInputs("customerInfo")}>Next</button>
+//     </div>
+// </>
+// :

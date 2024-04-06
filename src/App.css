@@ -353,6 +353,10 @@ html {
 	font-weight: 600;
 	font-size: 15px;
 }
+.deliveryInfoP{
+	padding: 0px 15px;
+	margin-top: 0px;
+}
 .responseBox {
 	position: absolute;
 	width: 100%;
