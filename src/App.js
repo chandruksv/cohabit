@@ -266,11 +266,6 @@ function App() {
         userConsent:false,
         total:0,
         totalCost:0,
-        SNO:1,
-        description:"",
-        dimensions:"",
-        quantity:1,
-        furnitureImgUrl:"",
     });
 
     const initialState = {
@@ -294,12 +289,34 @@ function App() {
         userConsent:false,
         total:0,
         totalCost:0,
-        SNO:1,
-        description:"",
-        dimensions:"",
-        quantity:1,
-        furnitureImgUrl:"",
     }
+    // const initialState = {
+    //     name:"",
+    //     email:"",
+    //     emailWithoutDomain:"",
+    //     domain:"@hotmail.com",
+    //     wpnumber:false,
+    //     phonenumber:0,
+    //     period:"",
+    //     address:"",
+    //     price:299,
+    //     productPrice:299,
+    //     shippingPrice:400,
+    //     product:"prudktn name",
+    //     orderList:[],
+    //     addOnsList:[],
+    //     deliveryDate:"",
+    //     timePreference:"",
+    //     anythingElse:"",
+    //     userConsent:false,
+    //     total:0,
+    //     totalCost:0,
+    //     SNO:1,
+    //     description:"",
+    //     dimensions:"",
+    //     quantity:1,
+    //     furnitureImgUrl:"",
+    // }
 
     const images = [
         'https://cohabit.se/wp-content/uploads/2023/07/1-300x300.png',
@@ -387,7 +404,10 @@ function App() {
                     setLoading(false);
                 });
         }else{
-            setResponse("Fill all the required areas please!");
+            setResponse("Please check that given information are correct!");
+            setTimeout(() => {
+                setResponse("");
+            }, 3000);
         }
     }
 
@@ -642,6 +662,14 @@ function App() {
 
         return {addonlist,priceToReduce};
     }
+
+    const getCurrentDate = () => {
+        var currentDate = new Date();
+        var year = currentDate.getFullYear();
+        var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Add leading zero if month < 10
+        var day = ('0' + currentDate.getDate()).slice(-2); // Add leading zero if day < 10
+        return year + '-' + month + '-' + day;
+      }
 
   return (
     <div className="App">
@@ -930,7 +958,7 @@ function App() {
                                     <div className="inputsBox">
                                         <div className="input-wrapper">
                                             <label htmlFor="deliveryDate">Preferred Delivery Date <span style={{color:'red'}}>*</span></label>
-                                            <input id="deliveryDate" className='emailEndPoint dateAndTimePick' type="date" name='deliveryDate' style={{width:"auto", minWidth: "auto", paddingRight:'0', fontWeight:'bold', borderBottom:'1px solid'}} onChange={handleChange} value={state.deliveryDate}/>
+                                            <input id="deliveryDate" className='emailEndPoint dateAndTimePick' type="date" name='deliveryDate' min={getCurrentDate()} style={{width:"auto", minWidth: "auto", paddingRight:'0', fontWeight:'bold', borderBottom:'1px solid'}} onChange={handleChange} value={state.deliveryDate}/>
                                         </div>
                                         <div className="input-wrapper" style={{marginBottom:'3px'}}>
                                             <label htmlFor="timePreference">Preferred Delivery Hour <span style={{color:'red'}}>*</span></label>
@@ -962,7 +990,7 @@ function App() {
                                 currentSection === "summary" ?
                                 <>
                                     <div className="summaryBoxes">      
-                                        <h3 className='subTitle'>Order Details <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("products")}}>&#x270E;</span></h3>
+                                        <h3 className='subTitle'>Order Details <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("products"); setActiveTitle("Products")}}>&#x270E;</span></h3>
                                         <div className="summaryBox">
                                             {state.orderList.map(order=>{
                                                 return (
@@ -1007,10 +1035,10 @@ function App() {
                                             </div>
                                         </div>
 
-                                        <h3 className='subTitle'>Customer Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("customerInfo")}}>&#x270E;</span></h3>
+                                        <h3 className='subTitle'>Customer Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("customerInfo"); setActiveTitle("Customer Information")}}>&#x270E;</span></h3>
                                         <div className="summaryBox">
                                             <div className="summary-wrapper">
-                                                <p>Name</p>
+                                                <p>Full Name</p>
                                                 <p>{state.name}</p>
                                             </div>
                                             <div className="summary-wrapper">
