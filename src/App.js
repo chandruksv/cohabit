@@ -400,7 +400,7 @@ function App() {
 
                     // setState(initialState);
                     setOrderMade(true);
-                    setCurrentSection("customerInfo");
+                    setCurrentSection("products");
                     setLoading(false);
                 });
         }else{
@@ -1115,7 +1115,7 @@ function App() {
                                         <p>Kind regards,</p>
                                         <p>Cohabit Team!</p>
                                     </div>
-                                    <button className='btn newOrderBtn' onClick={()=> {setOrderMade(""); setState(initialState)}}>New Order</button>
+                                    <button className='btn newOrderBtn' onClick={()=> {setOrderMade(""); setActiveTitle("Products"); setState(initialState)}}>New Order</button>
                                 </div>
                                 <p className='attention'>If you did not receive an email, kindly check your spam folder or reach out to us through <a className='link' href="mailto:hello@cohabit.se">hello@cohabit.se</a></p>
                             </div>
