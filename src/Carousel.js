@@ -23,7 +23,6 @@ const Carousel = ({ images }) => {
   useEffect(() => {
     const handleResize = () => {
     
-      console.log(window.innerWidth);
       if (window.innerWidth < 500) {
         setSlidesNumber(2);
       } 
