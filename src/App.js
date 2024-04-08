@@ -4,6 +4,7 @@ import axios from 'axios';
 // import {saveAs} from 'file-saver';
 
 import Carousel from './Carousel';
+import validator from 'validator';
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -14,6 +15,7 @@ function App() {
 
     const [currentSection, setCurrentSection] = useState("products");
     const [activeProducts, setActiveProducts] = useState("notSelected");
+    const [isValidEmail, setIsValidEmail] = useState(true);
 
     let [bundles, setBundles] = useState([
         {
@@ -357,7 +359,7 @@ function App() {
                 totalCost:parseInt(state.total)+chargeOfDelivery,
             }));
         }
-     
+
         setState(prevState => ({
             ...prevState,
             [name]: value,
@@ -380,7 +382,7 @@ function App() {
     };
 
     const sendOrder = () => {
-        if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0) {
+        if(state.name !== "" && validator.isEmail(state.email) && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0) {
             setLoading(true);
             setActiveProducts("notSelected");
             setResponse("");
@@ -480,9 +482,14 @@ function App() {
                 }
                 break;
             case 'customerInfo':
-                if (state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.phonenumber !== 0 && state.period !== "" && state.deliveryDate !== "" && state.timePreference !== "") {
-                    setCurrentSection("summary");
-                    setActiveTitle("Order Summary");
+                if (state.name !== "" && state.email !== "" && state.address !== "" && state.phonenumber !== 0 && state.period !== "" && state.deliveryDate !== "" && state.timePreference !== "") {
+                    if(validator.isEmail(state.email)){
+                        setIsValidEmail(true);
+                        setCurrentSection("summary");
+                        setActiveTitle("Order Summary");
+                    }else{
+                        setIsValidEmail(false);
+                    }
                 }else{
                     setResponse("Please fill all the required fields!");
                     setTimeout(() => {
@@ -760,7 +767,10 @@ function App() {
                                           
                                             {state.orderList.length > 0 && 
                                                 <div className="productSelectionDiv orderListReviewBox">
-                                                    <h3 style={{marginBottom:'0'}}>Order list</h3>
+                                                    <div className='orderlistTitle'>
+                                                        <h3>Orderlist</h3>
+                                                        <h3>{state.total}.00 SEK</h3>
+                                                    </div>
                                                     {state.orderList.map(order =>{
                                                         return (
                                                             <div key={order.id} className='orderListReview'> 
@@ -788,7 +798,7 @@ function App() {
                                                                         {addOns.map(addOn => {
                                                                             return (
                                                                                 <div key={addOn.id} className='addOn'>
-                                                                                    <div className="costPart">
+                                                                                    <div className="costPart costPartMobile">
                                                                                         <input type="checkbox" id="checkbox" name="checkbox" checked={state.addOnsList.includes(addOn)} onChange={() => handleAddOn(addOn)}/>
                                                                                         <p>{addOn.name}</p>
                                                                                     </div>
@@ -857,10 +867,6 @@ function App() {
 
                                         </>
                                         }
-                                        <div className="totalPrice">
-                                            <div style={{display:'none'}}>Total</div>
-                                            <div>{state.total}.00 SEK</div>
-                                        </div> 
                                     </div>
 
                                     <div className="navigateBtns">
@@ -895,9 +901,15 @@ function App() {
                                                 />
                                         </div>
                                         <div className="input-wrapper">
-                                            <label htmlFor="emailWithoutDomain">Email <span style={{color:'red'}}>*</span></label>
+                                            <label htmlFor="email">Email <span style={{color:'red'}}>*</span></label>
                                             
                                             <div className='emailInputBox'>
+                                                <input id="email" type="text" name='email' placeholder='example'
+                                                    onChange={handleChange}
+                                                    value={state.email}/>
+                                            </div>
+
+                                            {/* <div className='emailInputBox'>
                                                 <input id="emailWithoutDomain" type="text" name='emailWithoutDomain' placeholder='example' style={{minWidth: 'unset', width: '55%'}} 
                                                     onChange={(e)=> {
                                                         const value = e.target.value;
@@ -924,8 +936,13 @@ function App() {
                                                     <option value="@hotmail.com">@hotmail.com</option>
                                                     <option value="@gmail.com">@gmail.com</option>
                                                 </select>
-                                            </div>
+                                            </div> */}
                                         </div>
+                                        {!isValidEmail && 
+                                            <p className='notValidEmail' style={{color: 'red', width: '50%', marginTop: '-10px', fontSize: '14px', textAlign: 'right'}}>
+                                                Please enter a valid email address
+                                            </p>
+                                        }
                                         <div className="input-wrapper">
                                             <label htmlFor="address">Address <span style={{color:'red'}}>*</span></label>
                                             <input id="address" type="text" name='address' onChange={handleChange} value={state.address}/>
@@ -1080,7 +1097,7 @@ function App() {
                                         </div>
                                     </div>
                                     <div className="navigateBtns">
-                                        <button className="btn backBtn" onClick={()=> {setCurrentSection("furtherInfo"); setActiveTitle("Further Information")}}>Back</button>
+                                        <button className="btn backBtn" onClick={()=> {setCurrentSection("customerInfo"); setActiveTitle("Customer Information")}}>Back</button>
                                         <button className='btn submitBtn' onClick={sendOrder} disabled={loading}>
                                             {!loading ? "Submit" : 
                                                 <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>

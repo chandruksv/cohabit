@@ -103,7 +103,7 @@ html {
 	
 }
 .input-wrapper input, textarea {
-	width: 280px;
+	min-width: 240px;
 	padding: 10px;
 	font-family: "Raleway", sans-serif;
 	font-optical-sizing: auto;
@@ -117,6 +117,13 @@ html {
 .emailInputBox{
 	display:flex; 
 	flex-direction:row;
+}
+.notValidEmail{
+	color: red;
+	width: 50%;
+	margin-top: -10px;
+	font-size: 14px;
+	text-align: right;
 }
 .emailEndPoint{
 	border: none;
@@ -183,7 +190,6 @@ html {
 	padding: 10px;
 	margin: auto;
 	width: 92%;
-	border-bottom: 1px solid;
 }
 .addOn{
 	display: flex;
@@ -323,15 +329,17 @@ html {
 	border-bottom-right-radius: 20px;
 	z-index: 1;
 }
-.totalPrice {
+.orderlistTitle{
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	font-weight: bolder;
-	margin-top: 10px;
-	position: absolute;
-	top: 10px;
-	right: 30px;
+	border-bottom: 1px solid black;
+	width: 100%;
+}
+.orderlistTitle > h3{
+	width: unset;
+	padding-bottom: 0px;
+	border-bottom: unset;
+	margin-bottom: 10px;
 }
 .submitBtn {
   height: 40px;
@@ -734,10 +742,6 @@ html {
 		padding: 5px 10px;
 		font-size: 20px;
 	}
-	.totalPrice{
-		top: 23px;
-		right: 15px;
-	}
 	.backToProductTypeSelection {
 		top: 73px;
 		right: 15px;
@@ -770,6 +774,10 @@ html {
 	}
 	.emailInputBox{
 		width: 70%;
+		text-align: center;
+	}
+	.notValidEmail{
+		width: 70%;
 	}
 	.rentalSelect{
 		position: relative;
@@ -797,6 +805,14 @@ html {
 	}
 	.orderListReview {
 		width: 100%;
+	}
+	.addOn{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	.costPartMobile {
+		width: 70%;
+		justify-content: left;
 	}
 	.thanksBox {
 		margin-bottom: 0px;
