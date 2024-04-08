@@ -120,10 +120,12 @@ html {
 }
 .notValidEmail{
 	color: red;
-	width: 50%;
+	width: 45%;
 	margin-top: -10px;
 	font-size: 14px;
 	text-align: right;
+	min-width: 250px;
+	max-width: 450px;
 }
 .emailEndPoint{
 	border: none;
@@ -776,8 +778,9 @@ html {
 		width: 70%;
 		text-align: center;
 	}
-	.notValidEmail{
-		width: 70%;
+	.notValidEmail {
+		width: 40%;
+		text-align: center;
 	}
 	.rentalSelect{
 		position: relative;
