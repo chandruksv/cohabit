@@ -406,7 +406,7 @@ function App() {
                     setLoading(false);
                 });
         }else{
-            setResponse("Please check that given information are correct!");
+            setResponse("Please confirm that given information are correct!");
             setTimeout(() => {
                 setResponse("");
             }, 3000);
