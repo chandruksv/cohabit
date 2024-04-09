@@ -1034,10 +1034,23 @@ function App() {
                                                     </div>
                                                 )
                                             })}
+
+                                            <div className="summary-wrapper">
+                                                <p>Order Total</p>
+                                                <p>{state.total}.00 SEK / Month</p>
+                                            </div>
+                                            <div className="summary-wrapper" style={{borderBottom: '1px solid black', paddingBottom: '15px'}}>
+                                                <p>Delivery Fee</p>
+                                                <p>{state.deliveryCharge}.00 SEK</p>
+                                            </div>
+                                            <div className="summary-wrapper" style={{fontWeight:'bold', fontSize:'18px'}}>
+                                                <p>Total</p>
+                                                <p>{state.totalCost}.00 SEK</p>
+                                            </div>
                                         </div>
 
-                                        <h3 className='subTitle'>Costs</h3>
-                                        <div className="summaryBox">
+                                        {/* <h3 className='subTitle'>Costs</h3> */}
+                                        {/* <div className="summaryBox">
                                             <div className="summary-wrapper">
                                                 <p>Items Cost</p>
                                                 <p>{state.total}.00 SEK / Month</p>
@@ -1050,7 +1063,7 @@ function App() {
                                                 <p>Total Cost</p>
                                                 <p>{state.totalCost}.00 SEK</p>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <h3 className='subTitle'>Customer Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("customerInfo"); setActiveTitle("Customer Information")}}>&#x270E;</span></h3>
                                         <div className="summaryBox">
