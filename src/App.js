@@ -769,7 +769,7 @@ function App() {
                                                 <div className="productSelectionDiv orderListReviewBox">
                                                     <div className='orderlistTitle'>
                                                         <h3>Orderlist</h3>
-                                                        <h3>{state.total}.00 SEK</h3>
+                                                        <h3>{state.total}.00 SEK / Month</h3>
                                                     </div>
                                                     {state.orderList.map(order =>{
                                                         return (
@@ -1040,7 +1040,7 @@ function App() {
                                         <div className="summaryBox">
                                             <div className="summary-wrapper">
                                                 <p>Items Cost</p>
-                                                <p>{state.total}.00 SEK</p>
+                                                <p>{state.total}.00 SEK / Month</p>
                                             </div>
                                             <div className="summary-wrapper" style={{borderBottom: '1px solid black', paddingBottom: '15px'}}>
                                                 <p>Delivery Charge</p>
