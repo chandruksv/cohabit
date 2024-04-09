@@ -989,8 +989,8 @@ function App() {
                                         </div>
                                                     
                                         <div className='notice'>
-                                           <p className='deliveryInfoP' style={{marginBottom:'0px'}}>The standard delivery charge is 400 SEK.</p>
-                                           <p className='deliveryInfoP' style={{marginTop:'5px'}}>Deliveries on weekends, special holidays, and after 17.00 will incur a special delivery charge of 600 SEK.</p>
+                                           <p className='deliveryInfoP' style={{marginBottom:'0px'}}>The standard delivery fee is 400 SEK.</p>
+                                           <p className='deliveryInfoP' style={{marginTop:'5px'}}>Deliveries on weekends, special holidays, and after 17.00 will incur a special delivery fee of 600 SEK.</p>
                                         </div>
                                         <div className="input-wrapper">
                                             <label htmlFor="anythingElse">Is there anything else you want us to know about your order?</label>
@@ -1043,7 +1043,7 @@ function App() {
                                                 <p>{state.total}.00 SEK / Month</p>
                                             </div>
                                             <div className="summary-wrapper" style={{borderBottom: '1px solid black', paddingBottom: '15px'}}>
-                                                <p>Delivery Charge</p>
+                                                <p>Delivery Fee</p>
                                                 <p>{state.deliveryCharge}.00 SEK</p>
                                             </div>
                                             <div className="summary-wrapper" style={{fontWeight:'bold', fontSize:'18px'}}>
