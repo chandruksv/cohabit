@@ -23,7 +23,7 @@ function App() {
             id: 0,
             name: "Studio Bundle",
             imageUrl: "Bundle.jpeg",
-            description:"Basic studio bundle of a single bed with a table and chair.",
+            description:"The basic bundle includes a single bed, small table and chair.",
             cost: 299,
             type:'bundle',
             quantity:1,
@@ -34,32 +34,32 @@ function App() {
         {
             id: 101,
             name: "Upgrade to large single bed - 105cm x 200cm",
-            imageUrl: "Bundle.jpeg",
+            imageUrl: "large_single_bed.png",
             description:"Make the upgrade on the studio bundle by choosing a larger single bed",
             cost: 50,
             type:'bundle',
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/email/Bundle.jpeg?raw=true',
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/large_single_bed.png?raw=true',
         },
         {
             id: 102,
             name: "Upgrade to small double bed - 120cm x 200cm",
-            imageUrl: "small_double_bed.jpg",
+            imageUrl: "small_double_bed.png",
             description:"Make the upgrade on the studio bundle by choosing a small double bed (140x200)",
             cost: 150,
             type:'bundle',
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/small_double_bed.jpg?raw=true'
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/small_double_bed.png?raw=true'
         },
         {
             id: 103,
             name: "Upgrade to Standard double bed - 140cm x 200cm",
-            imageUrl: "double_bed.jpg",
+            imageUrl: "double_bed.png",
             description:"Make the upgrade on the studio bundle by choosing a standard double bed (160x200)",
             cost: 150,
             type:'bundle',
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.jpg?raw=true'
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.png?raw=true'
         },
         {
             id: 104,
@@ -94,12 +94,12 @@ function App() {
         {
             id: 107,
             name: "Add on: Storage / Shelves",
-            imageUrl: "storage_medium.jpg",
+            imageUrl: "storage_medium.png",
             description:"Add additional storage to your studio bundle",
             cost: 100,
             type:'bundle',
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_medium.jpg?raw=true',
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_medium.png?raw=true',
         },
         {
             id: 108,
@@ -684,7 +684,11 @@ function App() {
                                                             {state.orderList.filter(order => order.type === "bundle").map(order => {
                                                                 return (
                                                                     <div key={order.id} className="orderlistItem">
-                                                                        <img className='orderImg' src={require(`./assets/email/${order.imageUrl}`)} alt={order.name} />
+                                                                        <img className='orderImg bundleImg' src={require(`./assets/email/${order.imageUrl}`)} alt={order.name} />
+                                                                        <div className="orderlistItemTextBox">
+                                                                            <h4>{order.name}</h4>
+                                                                            <p className='orderlistItemText'>{order.description}</p>
+                                                                        </div>
                                                                         <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
                                                                     </div>
                                                                 )
@@ -700,6 +704,10 @@ function App() {
                                                                 return (
                                                                     <div key={order.id} className="orderlistItem">
                                                                         <img className='orderImg' src={require(`./assets/furnitures/${order.imageUrl}`)} alt={order.name} />
+                                                                        <div className="orderlistItemTextBox">
+                                                                            <h4>{order.name}</h4>
+                                                                            <p className='orderlistItemText'>{order.description}</p>
+                                                                        </div>
                                                                         <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
                                                                     </div>
                                                                 )
