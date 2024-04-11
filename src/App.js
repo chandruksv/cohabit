@@ -16,7 +16,7 @@ function App() {
     const [activeProducts, setActiveProducts] = useState("notSelected");
 
     const [isValidEmail, setIsValidEmail] = useState(true);
-    const [gatheredInfoAccepted, setGatheredInfoAccepted] = useState(false);
+    const [gatheredInfoAccepted, setGatheredInfoAccepted] = useState(true);
 
     let [bundles, setBundles] = useState([
         {
@@ -141,17 +141,17 @@ function App() {
             cost: 199,
             type:'singleItem',
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/single_bed.jpg?raw=true',
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/single_bed.png?raw=true',
         },
         {
             id: 12,
             name: "Large Single Bed",
             description: "105cm x 200cm",
-            imageUrl: "single_bed.png",
+            imageUrl: "large_single_bed.png",
             cost: 199,
             type:'singleItem',
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/single_bed.jpg?raw=true',
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/large_single_bed.png?raw=true',
         },
         {
             id: 2,
@@ -161,7 +161,7 @@ function App() {
             cost: 299,
             type:'singleItem',
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/small_double_bed.jpg?raw=true'
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/small_double_bed.png?raw=true'
         },
         {
             id: 3,
@@ -171,7 +171,7 @@ function App() {
             type:'singleItem',
             cost: 399,
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.jpg?raw=true'
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.png?raw=true'
         },
         {
             id: 4,
@@ -216,7 +216,7 @@ function App() {
             type:'singleItem',
             cost: 50,
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_small.jpg?raw=true'
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/bedside_storage.png?raw=true'
         },
         {
             id: 9,
@@ -225,7 +225,7 @@ function App() {
             type:'singleItem',
             cost: 100,
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_medium.jpg?raw=true'
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_medium.png?raw=true'
         },
         {
             id: 10,
@@ -234,7 +234,7 @@ function App() {
             type:'singleItem',
             cost: 150,
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_large.jpg?raw=true'
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_large.png?raw=true'
         },
         {
             id: 11,
@@ -243,7 +243,7 @@ function App() {
             type:'singleItem',
             cost: 50,
             quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/lights.jpg?raw=true'
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/lights.png?raw=true'
         }
     ]);
 
