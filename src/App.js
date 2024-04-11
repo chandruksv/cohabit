@@ -33,7 +33,7 @@ function App() {
     let [addOns] = useState([
         {
             id: 101,
-            name: "Upgrade to large single bed",
+            name: "Upgrade to large single bed - 105cm x 200cm",
             imageUrl: "Bundle.jpeg",
             description:"Make the upgrade on the studio bundle by choosing a larger single bed",
             cost: 50,
@@ -43,7 +43,7 @@ function App() {
         },
         {
             id: 102,
-            name: "Upgrade to small double bed",
+            name: "Upgrade to small double bed - 120cm x 200cm",
             imageUrl: "small_double_bed.jpg",
             description:"Make the upgrade on the studio bundle by choosing a small double bed (140x200)",
             cost: 150,
@@ -53,7 +53,7 @@ function App() {
         },
         {
             id: 103,
-            name: "Upgrade to Standard double bed",
+            name: "Upgrade to Standard double bed - 140cm x 200cm",
             imageUrl: "double_bed.jpg",
             description:"Make the upgrade on the studio bundle by choosing a standard double bed (160x200)",
             cost: 150,
@@ -63,16 +63,6 @@ function App() {
         },
         {
             id: 104,
-            name: "Upgrade to Premium or Large double bed",
-            imageUrl: "double_bed.jpeg",
-            description:"Make the upgrade on the studio bundle by choosing a premium or large double bed (180x200)",
-            cost: 200,
-            type:'bundle',
-            quantity:1,
-            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.jpg?raw=true'
-        },
-        {
-            id: 105,
             name: "Upgrade to Two chairs",
             imageUrl: "chair.jpg",
             description:"Make the upgrade on the studio bundle by choosing two chairs",
@@ -82,7 +72,7 @@ function App() {
             githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/double_bed.jpg?raw=true'
         },
         {
-            id: 106,
+            id: 105,
             name: "Upgrade to 4 chairs",
             imageUrl: "chair.jpg",
             description:"Make the upgrade on the studio bundle by choosing four chairs",
@@ -92,7 +82,7 @@ function App() {
             githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
         },
         {
-            id: 107,
+            id: 106,
             name: "Upgrade to larger dining table",
             imageUrl: "large_table.jpg",
             description:"Make the upgrade on the studio bundle to a large dining table",
@@ -102,7 +92,7 @@ function App() {
             githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
         },
         {
-            id: 108,
+            id: 107,
             name: "Add on: Storage / Shelves",
             imageUrl: "storage_medium.jpg",
             description:"Add additional storage to your studio bundle",
@@ -112,7 +102,7 @@ function App() {
             githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/storage_medium.jpg?raw=true',
         },
         {
-            id: 109,
+            id: 108,
             name: "Add on: Rug",
             imageUrl: "large_table.jpg",
             description:"Add an additional rug to your studio bundle",
@@ -122,7 +112,7 @@ function App() {
             githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
         },
         {
-            id: 110,
+            id: 109,
             name: "Add on: 2 Seater Sofa",
             imageUrl: "large_table.jpg",
             description:"Add an additional Sofa (two seater) to your studio bundle",
@@ -132,7 +122,7 @@ function App() {
             githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/chair.jpg?raw=true',
         },
         {
-            id: 111,
+            id: 110,
             name: "Add on: 3 Seater Sofa",
             imageUrl: "large_table.jpg",
             description:"Add an additional Sofa (Three seater) to your studio bundle",
@@ -146,8 +136,18 @@ function App() {
         {
             id: 1,
             name: "Single Bed",
-            description: "80cm x 90cm",
-            imageUrl: "single_bed.jpg",
+            description: "80/90cm x 200cm",
+            imageUrl: "single_bed.png",
+            cost: 199,
+            type:'singleItem',
+            quantity:1,
+            githubIMGURL:'https://github.com/Mehmet-Kaan/cohabit/blob/main/src/assets/furnitures/single_bed.jpg?raw=true',
+        },
+        {
+            id: 12,
+            name: "Large Single Bed",
+            description: "105cm x 200cm",
+            imageUrl: "single_bed.png",
             cost: 199,
             type:'singleItem',
             quantity:1,
@@ -156,8 +156,8 @@ function App() {
         {
             id: 2,
             name: "Small Double Bed",
-            description: "105cm x 120cm",
-            imageUrl: "small_double_bed.jpg",
+            description: "120cm x 200cm",
+            imageUrl: "small_double_bed.png",
             cost: 299,
             type:'singleItem',
             quantity:1,
@@ -166,8 +166,8 @@ function App() {
         {
             id: 3,
             name: "Double Bed",
-            description: "140cm x 160cm",
-            imageUrl: "double_bed.jpg",
+            description: "140cm x 200cm",
+            imageUrl: "double_bed.png",
             type:'singleItem',
             cost: 399,
             quantity:1,
@@ -212,7 +212,7 @@ function App() {
         {
             id: 8,
             name: "Bedside Storage (Small)",
-            imageUrl: "storage_small.jpg",
+            imageUrl: "bedside_storage.png",
             type:'singleItem',
             cost: 50,
             quantity:1,
@@ -221,7 +221,7 @@ function App() {
         {
             id: 9,
             name: "Shelf/Storage (Medium)",
-            imageUrl: "storage_medium.jpg",
+            imageUrl: "storage_medium.png",
             type:'singleItem',
             cost: 100,
             quantity:1,
@@ -230,7 +230,7 @@ function App() {
         {
             id: 10,
             name: "Shelf/Storage (Large)",
-            imageUrl: "storage_large.jpg",
+            imageUrl: "storage_large.png",
             type:'singleItem',
             cost: 150,
             quantity:1,
@@ -239,7 +239,7 @@ function App() {
         {
             id: 11,
             name: "Lights",
-            imageUrl: "lights.jpg",
+            imageUrl: "lights.png",
             type:'singleItem',
             cost: 50,
             quantity:1,
@@ -603,18 +603,18 @@ function App() {
 
         if(!newAddOnList.includes(addOn)){
 
-            if(addOn.id === 101 || addOn.id === 102 || addOn.id === 103 || addOn.id === 104){
-                let updatedStats = uncheckedOtherAddOns([101,102,103,104]);
+            if(addOn.id === 101 || addOn.id === 102 || addOn.id === 103){
+                let updatedStats = uncheckedOtherAddOns([101,102,103]);
                 newAddOnList = updatedStats.addonlist;
                 currentPrice -= updatedStats.priceToReduce;
             }
-            else if(addOn.id === 105 || addOn.id === 106){
-                let updatedStats = uncheckedOtherAddOns([105,106]);
+            else if(addOn.id === 104 || addOn.id === 105){
+                let updatedStats = uncheckedOtherAddOns([104,105]);
                 newAddOnList = updatedStats.addonlist;
                 currentPrice -= updatedStats.priceToReduce;
 
-            }else if(addOn.id === 110 || addOn.id === 111){
-                let updatedStats = uncheckedOtherAddOns([110,111]);
+            }else if(addOn.id === 109 || addOn.id === 110){
+                let updatedStats = uncheckedOtherAddOns([109,110]);
                 newAddOnList = updatedStats.addonlist;
                 currentPrice -= updatedStats.priceToReduce;
             }

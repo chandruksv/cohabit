@@ -795,6 +795,9 @@ html {
 		width: 40%;
 		text-align: center;
 	}
+	.gatheredInfoNotAccepted{
+		padding-left: 15px;
+	}
 	.rentalSelect{
 		position: relative;
 		left: 83px;
