@@ -33,9 +33,10 @@ function App() {
     let [addOns] = useState([
         {
             id: 101,
-            name: "Upgrade to large single bed - 105cm x 200cm",
+            name: "Upgrade to large single bed",
             imageUrl: "large_single_bed.png",
             description:"Make the upgrade on the studio bundle by choosing a larger single bed",
+            size:"105cm x 200cm",
             cost: 50,
             type:'bundle',
             quantity:1,
@@ -43,9 +44,10 @@ function App() {
         },
         {
             id: 102,
-            name: "Upgrade to small double bed - 120cm x 200cm",
+            name: "Upgrade to small double bed",
             imageUrl: "small_double_bed.png",
             description:"Make the upgrade on the studio bundle by choosing a small double bed (140x200)",
+            size:"120cm x 200cm",
             cost: 150,
             type:'bundle',
             quantity:1,
@@ -53,9 +55,10 @@ function App() {
         },
         {
             id: 103,
-            name: "Upgrade to Standard double bed - 140cm x 200cm",
+            name: "Upgrade to Standard double bed",
             imageUrl: "double_bed.png",
             description:"Make the upgrade on the studio bundle by choosing a standard double bed (160x200)",
+            size:"140cm x 200cm",
             cost: 150,
             type:'bundle',
             quantity:1,
@@ -784,7 +787,7 @@ function App() {
                                                                                 <div key={addOn.id} className='addOn'>
                                                                                     <div className="costPart costPartMobile">
                                                                                         <input type="checkbox" id="checkbox" name="checkbox" checked={state.addOnsList.includes(addOn)} onChange={() => handleAddOn(addOn)}/>
-                                                                                        <p>{addOn.name}</p>
+                                                                                        <p>{addOn.name}{addOn.size && ` - ${addOn.size}`}</p>
                                                                                     </div>
                                                                                     <p style={{fontWeight:'bold'}}>{addOn.cost} SEK</p>
                                                                                 </div>
