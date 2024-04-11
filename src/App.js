@@ -12,10 +12,11 @@ function App() {
     const [orderMade, setOrderMade] = useState(false);
 
     const [activeTitle, setActiveTitle] = useState("Products");
-
     const [currentSection, setCurrentSection] = useState("products");
     const [activeProducts, setActiveProducts] = useState("notSelected");
+
     const [isValidEmail, setIsValidEmail] = useState(true);
+    const [gatheredInfoAccepted, setGatheredInfoAccepted] = useState(false);
 
     let [bundles, setBundles] = useState([
         {
@@ -292,33 +293,6 @@ function App() {
         total:0,
         totalCost:0,
     }
-    // const initialState = {
-    //     name:"",
-    //     email:"",
-    //     emailWithoutDomain:"",
-    //     domain:"@hotmail.com",
-    //     wpnumber:false,
-    //     phonenumber:0,
-    //     period:"",
-    //     address:"",
-    //     price:299,
-    //     productPrice:299,
-    //     shippingPrice:400,
-    //     product:"prudktn name",
-    //     orderList:[],
-    //     addOnsList:[],
-    //     deliveryDate:"",
-    //     timePreference:"",
-    //     anythingElse:"",
-    //     userConsent:false,
-    //     total:0,
-    //     totalCost:0,
-    //     SNO:1,
-    //     description:"",
-    //     dimensions:"",
-    //     quantity:1,
-    //     furnitureImgUrl:"",
-    // }
 
     const images = [
         'https://cohabit.se/wp-content/uploads/2023/07/1-300x300.png',
@@ -386,8 +360,10 @@ function App() {
             setLoading(true);
             setActiveProducts("notSelected");
             setResponse("");
-
-            axios.post('https://cohabit-backend-mehmet.onrender.com/sendEmails', state)
+            let fetchURL = 'https://cohabit-backend-mehmet.onrender.com/sendEmails';
+            // let fetchURL = 'sendEmails';
+            
+            axios.post(fetchURL, state)
                 .then((res)=>{
                     // console.log(res);
                 })
@@ -406,9 +382,9 @@ function App() {
                     setLoading(false);
                 });
         }else{
-            setResponse("Please confirm that given information are correct!");
+            setGatheredInfoAccepted(false);
             setTimeout(() => {
-                setResponse("");
+                setGatheredInfoAccepted(true);
             }, 3000);
         }
     }
@@ -904,39 +880,10 @@ function App() {
                                             <label htmlFor="email">Email <span style={{color:'red'}}>*</span></label>
                                             
                                             <div className='emailInputBox'>
-                                                <input id="email" type="text" name='email' placeholder='example'
+                                                <input id="email" type="text" name='email' placeholder=''
                                                     onChange={handleChange}
                                                     value={state.email}/>
                                             </div>
-
-                                            {/* <div className='emailInputBox'>
-                                                <input id="emailWithoutDomain" type="text" name='emailWithoutDomain' placeholder='example' style={{minWidth: 'unset', width: '55%'}} 
-                                                    onChange={(e)=> {
-                                                        const value = e.target.value;
-                                                        setState(prevState => ({
-                                                            ...prevState,
-                                                            emailWithoutDomain: value,
-                                                            email: `${value}${state.domain}`
-                                                        }));
-                                                    }}
-                                                    value={state.emailWithoutDomain}/>
-                                                <select
-                                                    className='emailEndPoint'
-                                                    name="domain"
-                                                    defaultValue="@hotmail.com" 
-                                                    onChange={(e) => {
-                                                        const domain = e.target.value;
-                                                        setState(prevState => ({
-                                                            ...prevState,
-                                                            domain:domain,
-                                                            email: `${state.emailWithoutDomain}${domain}`
-                                                        }));
-                                                    }}
-                                                >
-                                                    <option value="@hotmail.com">@hotmail.com</option>
-                                                    <option value="@gmail.com">@gmail.com</option>
-                                                </select>
-                                            </div> */}
                                         </div>
                                         {!isValidEmail && 
                                             <p className='notValidEmail' style={{color: 'red', width: '50%', marginTop: '-10px', fontSize: '14px', textAlign: 'right'}}>
@@ -1049,22 +996,6 @@ function App() {
                                             </div>
                                         </div>
 
-                                        {/* <h3 className='subTitle'>Costs</h3> */}
-                                        {/* <div className="summaryBox">
-                                            <div className="summary-wrapper">
-                                                <p>Items Cost</p>
-                                                <p>{state.total}.00 SEK / Month</p>
-                                            </div>
-                                            <div className="summary-wrapper" style={{borderBottom: '1px solid black', paddingBottom: '15px'}}>
-                                                <p>Delivery Fee</p>
-                                                <p>{state.deliveryCharge}.00 SEK</p>
-                                            </div>
-                                            <div className="summary-wrapper" style={{fontWeight:'bold', fontSize:'18px'}}>
-                                                <p>Total Cost</p>
-                                                <p>{state.totalCost}.00 SEK</p>
-                                            </div>
-                                        </div> */}
-
                                         <h3 className='subTitle'>Customer Information <span onClick={() => {setActiveProducts("notSelected"); setCurrentSection("customerInfo"); setActiveTitle("Customer Information")}}>&#x270E;</span></h3>
                                         <div className="summaryBox">
                                             <div className="summary-wrapper">
@@ -1104,10 +1035,15 @@ function App() {
                                             }  
                                         </div>
                                         
-                                        <div className="summary-wrapper" style={{ justifyContent:"center", flexDirection:'row', gap:'10px', alignItems:'center', fontWeight:'bold', marginTop:'20px',marginBottom:'40px'}}>
+                                        <div className="summary-wrapper" style={{ justifyContent:"center", flexDirection:'row', gap:'10px', alignItems:'center', fontWeight:'bold', marginTop:'20px',marginBottom:'25px'}}>
                                             <input type="checkbox" id="userConsent" name="userConsent" onChange={handleCheckBoxChange} checked={state.userConsent}/>
                                             <label htmlFor="userConsent" className='userContentLabel'>I agree that the gathered information can be used for further communication with Cohabit *</label>
                                         </div>
+                                        {!gatheredInfoAccepted && 
+                                            <p className='gatheredInfoNotAccepted'>
+                                                Please confirm that given information are correct!
+                                            </p>
+                                        }
                                     </div>
                                     <div className="navigateBtns">
                                         <button className="btn backBtn" onClick={()=> {setCurrentSection("customerInfo"); setActiveTitle("Customer Information")}}>Back</button>

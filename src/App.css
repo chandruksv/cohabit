@@ -127,6 +127,14 @@ html {
 	min-width: 250px;
 	max-width: 450px;
 }
+.gatheredInfoNotAccepted {
+	color: red;
+	width: 98%;
+	padding-left: 30px;
+	font-size: 14px;
+	margin-top: -15px;
+	text-align: left;
+}
 .emailEndPoint{
 	border: none;
 	background: unset;
