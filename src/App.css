@@ -23,7 +23,7 @@ html {
 	width: 90%;
   	max-width: 1200px;
 	z-index: 1;
-	margin-top: 15px;
+	/* margin-top: 15px; */
 }
 .logo {
 	width: 30%;
@@ -716,15 +716,30 @@ html {
 
 		margin: 0px;
 	}
-	.orderlistItem{
-		/* width: 120px; */
+	
+	.orderlistSingleItem {
+		height: 170px;
+		min-width: 170px;
+		flex-direction: column;
+	}
+	.activeProductsBtn{
+		height: 170px;
+		min-width: 170px;
 	}
 	.orderlistItemTextBox {
+		/* display: none; */
+	}
+	.removeOnMobileV{
 		display: none;
 	}
 	.orderImg{
-		width: 100%;
+		width: 50%;
 		border-radius: 15px;
+	}
+	.bundleImg{
+		width: 120px;
+		border-top-right-radius: unset;
+    	border-bottom-right-radius: unset;
 	}
 	.productSelectionDiv {
 		height: unset;

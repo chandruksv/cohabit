@@ -9,7 +9,7 @@ import validator from 'validator';
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
-    const [orderMade, setOrderMade] = useState(false);
+    const [orderMade, setOrderMade] = useState(true);
 
     const [activeTitle, setActiveTitle] = useState("Products");
     const [currentSection, setCurrentSection] = useState("products");
@@ -670,7 +670,7 @@ function App() {
                                 {
                                 currentSection === "products" ?
                                 <>
-                                    <p className='raleway-normal' style={{marginTop: '0', fontSize: '16px'}}>The images that you see are indicative of the type of product offered.</p>
+                                    <p className='raleway-normal' style={{marginTop: '0', fontSize: '16px'}}>The images you see are indicative of the type of furniture offered.</p>
                                     <div className="inputsBox productsBox">
                                         {activeProducts === "notSelected" ? 
                                         <div className="activeProductsBtns">
@@ -683,7 +683,7 @@ function App() {
                                                     <div className="productSelectionDiv">
                                                         <h3>Bundles</h3>
                                                         <div className='orderlistBox'>
-                                                            <div className='activeProductsBtn' onClick={()=> setActiveProducts("bundles")}>+</div>
+                                                            <div className={state.orderList.some(item => item.type === "bundle") ? 'activeProductsBtn removeOnMobileV' : 'activeProductsBtn'} onClick={()=> setActiveProducts("bundles")}>+</div>
                                                             {state.orderList.filter(order => order.type === "bundle").map(order => {
                                                                 return (
                                                                     <div key={order.id} className="orderlistItem">
@@ -705,7 +705,7 @@ function App() {
                                                             <div className='activeProductsBtn' onClick={()=> { window.scrollTo({ top: 0, behavior: 'smooth' }); setActiveProducts("others")}}>+</div>
                                                             {state.orderList.filter(order => order.type === "singleItem").map(order => {
                                                                 return (
-                                                                    <div key={order.id} className="orderlistItem">
+                                                                    <div key={order.id} className="orderlistItem orderlistSingleItem">
                                                                         <img className='orderImg' src={require(`./assets/furnitures/${order.imageUrl}`)} alt={order.name} />
                                                                         <div className="orderlistItemTextBox">
                                                                             <h4>{order.name}</h4>
@@ -741,7 +741,7 @@ function App() {
                                                         <div className='activeProductsBtn' onClick={()=> { window.scrollTo({ top: 0, behavior: 'smooth' }); setActiveProducts("others")}}>+</div>
                                                         {state.orderList.filter(order => order.type === "singleItem").map(order => {
                                                             return (
-                                                                <div key={order.id} className="orderlistItem">
+                                                                <div key={order.id} className="orderlistItem orderlistSingleItem">
                                                                     <img className='orderImg' src={require(`./assets/furnitures/${order.imageUrl}`)} alt={order.name} />
                                                                     <button className='removeOrder' onClick={()=> removeFromOrderlist(order)}>X</button>
                                                                 </div>
