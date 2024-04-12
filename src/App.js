@@ -9,7 +9,7 @@ import validator from 'validator';
 function App() {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState("");
-    const [orderMade, setOrderMade] = useState(true);
+    const [orderMade, setOrderMade] = useState(false);
 
     const [activeTitle, setActiveTitle] = useState("Products");
     const [currentSection, setCurrentSection] = useState("products");
