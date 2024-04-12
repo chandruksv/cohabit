@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
-// import {saveAs} from 'file-saver';
 
 import Carousel from './Carousel';
 import validator from 'validator';
@@ -391,49 +390,6 @@ function App() {
             }, 3000);
         }
     }
-
-//   const createAndDownloadPdf = () => {
-//     if(state.name !== "" && state.emailWithoutDomain !== "" && state.address !== "" && state.userConsent !== false && state.phonenumber !== 0 && state.total > 0 && state.deliveryDate !== "" && state.timePreference !== "") {
-//         setLoading(true);
-//         setResponse("");
-
-//         axios.post('create-pdf', state)
-//             .then(()=> axios.get('get-pdf', {responseType:"blob"}))
-//             .then((res)=>{
-//                 const pdfBlob = new Blob([res.data], {type: "application/pdf"});
-//                 saveAs(pdfBlob, "order_conformation_Cohabit.pdf");
-//             })
-//             .catch((error) => {
-//                 // setResponse(error.response.data);
-//                 setResponse("Something went wrong! Please call us to complete your order!");
-//             })
-//             .finally(() => {
-//                 setTimeout(() => {
-//                     setResponse("");
-//                 }, 2000);
-
-//                 // setState(initialState);
-//                 setOrderMade(true);
-//                 setCurrentSection("customerInfo");
-//                 setLoading(false);
-//             });
-//     }else{
-//         setResponse("Fill all the required areas please!");
-//     }
-
-//   }
-
-//   const createAndDownloadCV = () => {
-//     axios.post('create-cv')
-//         .then(()=> axios.get('get-cv', {responseType:"blob"}))
-//         .then((res)=>{
-//             const pdfBlob = new Blob([res.data], {type: "application/pdf"});
-//             saveAs(pdfBlob, "Resume_Mehmet_Kaan_Taspunar.pdf");
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//         })
-//   }
 
     const checkInputs = (field) => {
         // case 'customerInfo':
@@ -1107,98 +1063,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-// currentSection === "customerInfo" ? 
-// <>
-//     <div className="inputsBox">
-//         <div className="input-wrapper">
-//             <label htmlFor="name">Name *</label>
-//             <input id="name" type="text" name='name' onChange={handleChange} value={state.name}/>
-//         </div>
-//         <div className="input-wrapper">
-//             <label htmlFor="phonenumber">Phone Number *</label>
-//             <input 
-//                 id="phonenumber" 
-//                 type="text" 
-//                 onKeyPress={(e) => {
-//                     if (!(e.charCode >= 48 && e.charCode <= 57)) {
-//                     e.preventDefault();
-//                     }
-//                 }}
-//                 onPaste={(e) => e.preventDefault()} 
-//                 onDrop={(e) => e.preventDefault()} 
-//                 name="phonenumber" 
-//                 onChange={handleChange} 
-//                 value={state.phonenumber}
-//                 />
-//         </div>
-//         <div className="input-wrapper">
-//             <label htmlFor="emailWithoutDomain">Email *</label>
-            
-//             <div className='emailInputBox'>
-//                 <input id="emailWithoutDomain" type="text" name='emailWithoutDomain' placeholder='example' style={{minWidth: 'unset', width: '55%'}} 
-//                     onChange={(e)=> {
-//                         const value = e.target.value;
-//                         setState(prevState => ({
-//                             ...prevState,
-//                             emailWithoutDomain: value,
-//                             email: `${value}${state.domain}`
-//                         }));
-//                     }}
-//                     value={state.emailWithoutDomain}/>
-//                 <select
-//                     className='emailEndPoint'
-//                     name="domain"
-//                     defaultValue="@hotmail.com" 
-//                     onChange={(e) => {
-//                         const domain = e.target.value;
-//                         setState(prevState => ({
-//                             ...prevState,
-//                             domain:domain,
-//                             email: `${state.emailWithoutDomain}${domain}`
-//                         }));
-//                     }}
-//                 >
-//                     <option value="@hotmail.com">@hotmail.com</option>
-//                     <option value="@gmail.com">@gmail.com</option>
-//                 </select>
-//             </div>
-//         </div>
-//         <div className="input-wrapper">
-//             <label htmlFor="address">Address *</label>
-//             <input id="address" type="text" placeholder='' name='address' onChange={handleChange} value={state.address}/>
-//         </div>
-//         <div className="input-wrapper">
-//             <label style={{lineHeight:'1.5', width:'70%'}} htmlFor="period">How long do you want to rent the furniture? *</label>
-//             <select id="period" className='emailEndPoint rentalSelect' name="period" onChange={handleChange} value={state.period} style={{ width: "90px" }}>
-//                 <option value="">- Months</option>
-//                 <option value="Below 3 Months">Below 3 Months</option>
-//                 <option value="3 Months">3 Months</option>
-//                 <option value="4 Months">4 Months</option>
-//                 <option value="5 Months">5 Months</option>
-//                 <option value="6 Months">6 Months</option>
-//                 <option value="7 Months">7 Months</option>
-//                 <option value="8 Months">8 Months</option>
-//                 <option value="9 Months">9 Months</option>
-//                 <option value="10 Months">10 Months</option>
-//                 <option value="11 Months">11 Months</option>
-//                 <option value="12 Months">12 Months</option>
-//                 <option value="13 Months">13 Months</option>
-//                 <option value="14 Months">14 Months</option>
-//                 <option value="15 Months">15 Months</option>
-//                 <option value="16 Months">16 Months</option>
-//                 <option value="17 Months">17 Months</option>
-//                 <option value="18 Months">18 Months</option>
-//                 <option value="Above 18 Months">Above 18 Months</option>
-//             </select>
-//         </div>
-//     </div>
-//     <div className="navigateBtns">
-//         <button className="btn backBtn" style={{opacity:0, pointerEvents:"none"}} disabled onClick={()=> setCurrentSection("customerInfo")}>Back</button>
-//         <button className="btn nextBtn" onClick={()=> checkInputs("customerInfo")}>Next</button>
-//     </div>
-// </>
-// :
